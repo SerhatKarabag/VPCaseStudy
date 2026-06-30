@@ -1,0 +1,17 @@
+{
+    "name": "ThreadRace.Infrastructure",
+    "rootNamespace": "ThreadRace.Infrastructure",
+    "references": [
+        "ThreadRace.Core",
+        "ThreadRace.Gameplay"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
