@@ -60,5 +60,13 @@ namespace ThreadRace.Gameplay.Domain
             IsFinished = true;
             FinishPlacement = placement;
         }
+
+        public void Restore(int progress, bool isFinished, int? finishPlacement, float? aiStepTimeRemaining)
+        {
+            Progress = progress;
+            IsFinished = isFinished;
+            FinishPlacement = finishPlacement.GetValueOrDefault();
+            AiStepTimeRemaining = aiStepTimeRemaining.GetValueOrDefault();
+        }
     }
 }

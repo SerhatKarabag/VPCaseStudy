@@ -683,6 +683,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15dda03cd21440ec961276e993da1190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _raceEventConfigAsset: {fileID: 11400000, guid: 643ee60a6bc6e5146af1975d76d5ec0a,
+    type: 2}
 --- !u!4 &2083204000
 Transform:
   m_ObjectHideFlags: 0

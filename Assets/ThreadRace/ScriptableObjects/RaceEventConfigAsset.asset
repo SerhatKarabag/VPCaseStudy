@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf1090cbd15cbc45b98ff087abb2b3a, type: 3}
+  m_Name: RaceEventConfigAsset
+  m_EditorClassIdentifier: 
+  _saveSchemaVersion: 1
+  _saveKey: ThreadRace.Save.V1
+  _defaultSeed: 26062026
+  _finishTarget: 10
+  _rewardedPositionCount: 3
+  _racers:
+  - _racerId: player
+    _displayName: You
+    _racerType: 0
+    _minimumAiStepDelaySeconds: 0
+    _maximumAiStepDelaySeconds: 0
+  - _racerId: ai_01
+    _displayName: Nova
+    _racerType: 1
+    _minimumAiStepDelaySeconds: 1.1
+    _maximumAiStepDelaySeconds: 1.8
+  - _racerId: ai_02
+    _displayName: Bolt
+    _racerType: 1
+    _minimumAiStepDelaySeconds: 1.25
+    _maximumAiStepDelaySeconds: 2
+  - _racerId: ai_03
+    _displayName: Mina
+    _racerType: 1
+    _minimumAiStepDelaySeconds: 1.4
+    _maximumAiStepDelaySeconds: 2.2
+  - _racerId: ai_04
+    _displayName: Rex
+    _racerType: 1
+    _minimumAiStepDelaySeconds: 1.55
+    _maximumAiStepDelaySeconds: 2.45

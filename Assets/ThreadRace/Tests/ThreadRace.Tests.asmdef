@@ -4,7 +4,9 @@
     "references": [
         "ThreadRace.Core",
         "ThreadRace.Gameplay",
-        "ThreadRace.Infrastructure"
+        "ThreadRace.Infrastructure",
+        "ThreadRace.App",
+        "Zenject"
     ],
     "includePlatforms": [
         "Editor"

@@ -4,6 +4,8 @@ namespace ThreadRace.Core.Random
     {
         int Seed { get; }
 
+        DeterministicRandomState CurrentState { get; }
+
         float Range(float minInclusive, float maxInclusive);
     }
 }

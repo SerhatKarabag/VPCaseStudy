@@ -559,6 +559,8 @@ namespace ThreadRace.Tests.EditMode
         {
             public int Seed => 0;
 
+            public DeterministicRandomState CurrentState => new DeterministicRandomState(Seed, 0, 0);
+
             public float Range(float minInclusive, float maxInclusive)
             {
                 if (minInclusive > maxInclusive)

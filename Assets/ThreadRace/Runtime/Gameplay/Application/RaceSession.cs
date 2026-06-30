@@ -2,6 +2,7 @@ using System;
 using ThreadRace.Core.Random;
 using ThreadRace.Gameplay.Config;
 using ThreadRace.Gameplay.Domain;
+using ThreadRace.Gameplay.Persistence;
 
 namespace ThreadRace.Gameplay.Application
 {
@@ -41,7 +42,11 @@ namespace ThreadRace.Gameplay.Application
 
         public RacePhase Phase => _phase;
 
-        public void Start()
+        public int Revision { get; private set; }
+
+        public DeterministicRandomState RandomState => _randomSource.CurrentState;
+
+        public bool Start()
         {
             if (_phase != RacePhase.NotStarted)
             {
@@ -58,44 +63,50 @@ namespace ThreadRace.Gameplay.Application
                     racer.AiStepTimeRemaining = GenerateAiDelay(racer.Definition);
                 }
             }
+
+            Revision++;
+            return true;
         }
 
-        public void ApplyPlayerResult(LevelResult result)
+        public bool ApplyPlayerResult(LevelResult result)
         {
             EnsureRunning("Player level results can only be applied while the race is running.");
             ValidateLevelResult(result);
 
             if (result == LevelResult.Fail)
             {
-                return;
+                return false;
             }
 
-            AdvanceRacer(_playerIndex);
+            return AdvanceRacer(_playerIndex);
         }
 
-        public void AdvanceAi(float deltaTimeSeconds)
+        public bool AdvanceAi(float deltaTimeSeconds)
         {
             EnsureRunning("AI simulation can only advance while the race is running.");
             ValidateDeltaTime(deltaTimeSeconds);
 
             if (deltaTimeSeconds == 0f || !HasActiveAiRacers())
             {
-                return;
+                return false;
             }
 
+            var revisionBefore = Revision;
             var remainingDelta = deltaTimeSeconds;
             while (_phase == RacePhase.Running && remainingDelta > 0f && TryGetNextAiTimer(out var nextTimer))
             {
                 if (nextTimer > remainingDelta)
                 {
                     SubtractActiveAiTimers(remainingDelta);
-                    return;
+                    return Revision != revisionBefore;
                 }
 
                 SubtractActiveAiTimers(nextTimer);
                 remainingDelta -= nextTimer;
                 ProcessDueAiRacers();
             }
+
+            return Revision != revisionBefore;
         }
 
         public RaceSnapshot GetSnapshot()
@@ -113,13 +124,106 @@ namespace ThreadRace.Gameplay.Application
             return _finalOutcome;
         }
 
-        private void AdvanceRacer(int racerIndex)
+        public RaceSaveData CaptureSaveData(int schemaVersion)
+        {
+            var racers = new RaceSaveRacerData[_racers.Length];
+            for (var i = 0; i < _racers.Length; i++)
+            {
+                var racer = _racers[i];
+                var aiStepTimeRemaining = racer.Definition.RacerType == RacerType.Ai
+                    && _phase == RacePhase.Running
+                    && !racer.IsFinished
+                        ? racer.AiStepTimeRemaining
+                        : (float?)null;
+
+                racers[i] = new RaceSaveRacerData(
+                    racer.Definition.Id,
+                    racer.Progress,
+                    racer.IsFinished,
+                    racer.HasFinishPlacement ? racer.FinishPlacement : (int?)null,
+                    aiStepTimeRemaining);
+            }
+
+            var finishOrder = new RacerId[_finishCount];
+            for (var i = 0; i < _finishCount; i++)
+            {
+                finishOrder[i] = _racers[_finishOrder[i]].Definition.Id;
+            }
+
+            return new RaceSaveData(
+                schemaVersion,
+                _phase,
+                racers,
+                finishOrder,
+                _finalOutcome == null ? null : CreateSaveOutcome(_finalOutcome),
+                _randomSource.CurrentState,
+                Revision);
+        }
+
+        internal static RaceSession Restore(
+            RaceConfiguration configuration,
+            IDeterministicRandomSource randomSource,
+            RaceSaveData saveData)
+        {
+            if (saveData == null)
+            {
+                throw new ArgumentNullException(nameof(saveData));
+            }
+
+            var session = new RaceSession(configuration, randomSource);
+            session.RestoreFromSave(saveData);
+            return session;
+        }
+
+        private void RestoreFromSave(RaceSaveData saveData)
+        {
+            _phase = saveData.Phase;
+            _finishCount = saveData.FinishOrder.Count;
+
+            for (var i = 0; i < _finishOrder.Length; i++)
+            {
+                _finishOrder[i] = -1;
+            }
+
+            for (var i = 0; i < saveData.Racers.Count; i++)
+            {
+                var racerData = saveData.Racers[i];
+                var racerIndex = _configuration.GetRacerIndex(racerData.RacerId);
+                if (racerIndex < 0)
+                {
+                    throw new InvalidOperationException($"Cannot restore unknown racer '{racerData.RacerId}'.");
+                }
+
+                _racers[racerIndex].Restore(
+                    racerData.Progress,
+                    racerData.IsFinished,
+                    racerData.FinishPlacement,
+                    racerData.AiStepTimeRemaining);
+            }
+
+            for (var i = 0; i < saveData.FinishOrder.Count; i++)
+            {
+                var racerIndex = _configuration.GetRacerIndex(saveData.FinishOrder[i]);
+                if (racerIndex < 0)
+                {
+                    throw new InvalidOperationException($"Cannot restore unknown finisher '{saveData.FinishOrder[i]}'.");
+                }
+
+                _finishOrder[i] = racerIndex;
+            }
+
+            RecalculateRanking();
+            _finalOutcome = saveData.PlayerOutcome == null ? null : CreatePlayerOutcome(saveData.PlayerOutcome);
+            Revision = saveData.Revision;
+        }
+
+        private bool AdvanceRacer(int racerIndex)
         {
             var racer = _racers[racerIndex];
             var progressed = racer.AdvanceOneStep(_configuration.FinishTarget);
             if (!progressed)
             {
-                return;
+                return false;
             }
 
             if (racer.Progress == _configuration.FinishTarget && !racer.IsFinished)
@@ -129,6 +233,8 @@ namespace ThreadRace.Gameplay.Application
 
             RecalculateRanking();
             ResolveOutcomeIfNeeded();
+            Revision++;
+            return true;
         }
 
         private void RecordFinish(int racerIndex)
@@ -381,6 +487,27 @@ namespace ThreadRace.Gameplay.Application
             }
 
             return finishers;
+        }
+
+        private PlayerRaceOutcome CreatePlayerOutcome(RaceSavePlayerOutcomeData outcomeData)
+        {
+            return new PlayerRaceOutcome(
+                outcomeData.PlayerId,
+                outcomeData.DidFinish,
+                outcomeData.IsDnf,
+                outcomeData.FinishPlacement,
+                outcomeData.IsRewardEligible,
+                CreateFinishedResults());
+        }
+
+        private static RaceSavePlayerOutcomeData CreateSaveOutcome(PlayerRaceOutcome outcome)
+        {
+            return new RaceSavePlayerOutcomeData(
+                outcome.PlayerId,
+                outcome.DidFinish,
+                outcome.IsDnf,
+                outcome.FinishPlacement,
+                outcome.IsRewardEligible);
         }
 
         private void EnsureRunning(string message)
