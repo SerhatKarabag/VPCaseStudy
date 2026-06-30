@@ -4,8 +4,7 @@
     "references": [
         "ThreadRace.Core",
         "ThreadRace.Gameplay",
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "ThreadRace.Infrastructure"
     ],
     "includePlatforms": [
         "Editor"
@@ -21,5 +20,8 @@
         "UNITY_INCLUDE_TESTS"
     ],
     "versionDefines": [],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
     "noEngineReferences": false
 }
