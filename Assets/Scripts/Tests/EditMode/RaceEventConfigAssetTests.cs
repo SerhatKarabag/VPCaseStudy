@@ -222,6 +222,7 @@ namespace ThreadRace.Tests.EditMode
                 RaceEventSettings.DefaultCountdownUpdateIntervalSeconds,
                 10,
                 3,
+                DefaultRewardTiers(),
                 authoringRacers);
 
             var settings = asset.ToRuntimeSettings();

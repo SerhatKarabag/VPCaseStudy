@@ -80,61 +80,6 @@ namespace ThreadRace.Tests.EditMode
         }
 
         [Test]
-        public void DemoSceneContainsFivePageSwipeMainMenu()
-        {
-            var scene = OpenDemoScene();
-            var canvas = FindRoot(scene, "Canvas");
-            var safeArea = FindChild(canvas, "SafeArea");
-            var mainMenuLayer = FindChild(safeArea, "MainMenuLayer");
-
-            Assert.NotNull(mainMenuLayer);
-            Assert.NotNull(mainMenuLayer.GetComponent<MainMenuView>());
-
-            var swipeController = mainMenuLayer.GetComponentInChildren<SwipePageController>(true);
-            Assert.NotNull(swipeController);
-            Assert.AreEqual(5, swipeController.PageCount);
-            AssertMainMenuStartsAtHomeAndLocksOuterPages(swipeController);
-            Assert.NotNull(mainMenuLayer.GetComponentInChildren<PageContentLayout>(true));
-            Assert.NotNull(mainMenuLayer.GetComponentInChildren<PageNavbar>(true));
-            Assert.AreEqual(5, mainMenuLayer.GetComponentsInChildren<NavbarItem>(true).Length);
-            Assert.IsNull(FindChild(mainMenuLayer, "EVENTSPage"));
-            Assert.NotNull(FindChild(mainMenuLayer, "PlayButton").GetComponent<Button>());
-            Assert.NotNull(FindChild(mainMenuLayer, "PlayButton").GetComponent<PlayButtonAttentionAnimator>());
-            AssertSpriteName(FindChild(mainMenuLayer, "PlayButton"), "UI-pack_Sprite_1_37");
-            Assert.AreEqual("LEVEL 1", FindChild(mainMenuLayer, "PlayButton/Label").GetComponent<TMPro.TMP_Text>().text);
-            AssertColor(FindChild(mainMenuLayer, "PlayButton/Label").GetComponent<TMPro.TMP_Text>().color, new Color(0.24f, 0.08f, 0.30f, 1f), "PlayButton label color");
-            Assert.NotNull(FindChild(mainMenuLayer, "ThreadRaceLiveOpsButton").GetComponent<Button>());
-            AssertSpriteName(FindChild(mainMenuLayer, "ThreadRaceLiveOpsButton"), "threadRace");
-            Assert.IsFalse(FindChild(mainMenuLayer, "ThreadRaceLiveOpsButton/Title").activeSelf);
-            Assert.IsFalse(FindChild(mainMenuLayer, "ThreadRaceLiveOpsButton/Icon").activeSelf);
-            var threadRaceCountdown = FindChild(mainMenuLayer, "ThreadRaceLiveOpsButton/Countdown");
-            Assert.NotNull(threadRaceCountdown);
-            Assert.NotNull(threadRaceCountdown.GetComponent<TMPro.TMP_Text>());
-            Assert.AreNotEqual("LIVE OPS", threadRaceCountdown.GetComponent<TMPro.TMP_Text>().text);
-            var mainMenuSerialized = new SerializedObject(mainMenuLayer.GetComponent<MainMenuView>());
-            AssertReference<Button>(mainMenuSerialized, "_playButton");
-            AssertReference<Button>(mainMenuSerialized, "_threadRaceButton");
-            AssertReference<TMPro.TMP_Text>(mainMenuSerialized, "_threadRaceCountdownText");
-            AssertComingSoonTooltip(mainMenuLayer);
-            AssertComingSoonNavItem(mainMenuLayer, "COMING_SOON_LEFTNavItem");
-            AssertComingSoonNavItem(mainMenuLayer, "COMING_SOON_RIGHTNavItem");
-            AssertViewportMaskWritesStencil(mainMenuLayer);
-            AssertPageMasksClipBleedingBackgrounds(mainMenuLayer);
-            AssertNavbarFitsBottomEdge(mainMenuLayer);
-            AssertSpriteName(FindChild(mainMenuLayer, "HOMEPage/Background"), "MainMenu_BG");
-            AssertSpriteName(FindChild(mainMenuLayer, "SHOPPage/Background"), "InGame_Background");
-            AssertSpriteName(FindChild(mainMenuLayer, "LEADERBOARDPage/Background"), "SkyRushSky_BG");
-            AssertShopShowcase(mainMenuLayer);
-            AssertFakeLeaderboard(mainMenuLayer);
-            AssertSpriteName(FindChild(mainMenuLayer, "BottomNavbar"), "MainMenu_UI_NavBar_BG");
-            AssertSpriteName(FindChild(mainMenuLayer, "COMING_SOON_LEFTNavItem/Icon"), "MainMenu_UI_Daily_Icon");
-            AssertSpriteName(FindChild(mainMenuLayer, "SHOPNavItem/Icon"), "MainMenu_UI_Shop_Icon");
-            AssertSpriteName(FindChild(mainMenuLayer, "HOMENavItem/Icon"), "MainMenu_UI_Home_Icon");
-            AssertSpriteName(FindChild(mainMenuLayer, "LEADERBOARDNavItem/Icon"), "MainMenu_UI_Leaderboard_Icon");
-            AssertSpriteName(FindChild(mainMenuLayer, "COMING_SOON_RIGHTNavItem/Icon"), "MainMenu_UI_Meta_Icon");
-        }
-
-        [Test]
         public void RequiredUiPrefabsExistAndHudContainsFiveRows()
         {
             var entryPrefab = AssertPrefabComponent<EntryPopupView>(EntryPrefabPath);
@@ -216,49 +161,6 @@ namespace ThreadRace.Tests.EditMode
             AssertReference<Button>(serialized, "_failButton");
             AssertReference<Button>(serialized, "_levelWinClaimButton");
             AssertReference<Button>(serialized, "_levelFailReturnButton");
-        }
-
-        [Test]
-        public void RaceHudPrefabUsesSkyRaceVisualLayout()
-        {
-            var hudPrefab = AssertPrefabComponent<RaceHudView>(HudPrefabPath);
-
-            Assert.NotNull(FindChild(hudPrefab, "SkyRaceHudRoot"));
-            Assert.NotNull(FindChild(hudPrefab, "RewardPodiumPanel"));
-            Assert.NotNull(FindChild(hudPrefab, "EventTitleTab"));
-            Assert.NotNull(FindChild(hudPrefab, "MessagePanel"));
-            Assert.NotNull(FindChild(hudPrefab, "TrackPanel"));
-            Assert.NotNull(FindChild(hudPrefab, "FinishStripe"));
-            Assert.NotNull(FindChild(hudPrefab, "CloseButton").GetComponent<Button>());
-            AssertSpriteName(FindChild(hudPrefab, "CloseButton"), "UI-pack_Sprite_1_79");
-            AssertSpriteName(FindChild(hudPrefab, "SkyBackground"), "MainMenu_BG");
-            AssertSpriteName(FindChild(hudPrefab, "TrackPanel"), "raceHudElementsSheet_0");
-            AssertSpriteName(FindChild(hudPrefab, "EventTitleTab"), "raceHudElementsSheet_1");
-            AssertSpriteName(FindChild(hudPrefab, "CountdownPill"), "raceHudElementsSheet_7");
-            AssertSpriteName(FindChild(hudPrefab, "chest1/RewardChest_1"), "raceHudElementsSheet_14");
-            AssertSpriteName(FindChild(hudPrefab, "chest2/RewardChest_2"), "raceHudElementsSheet_25");
-            AssertSpriteName(FindChild(hudPrefab, "chest3/RewardChest_3"), "raceHudElementsSheet_18");
-            AssertSpriteName(FindChild(hudPrefab, "chest1"), "raceHudElementsSheet_29");
-            AssertSpriteName(FindChild(hudPrefab, "chest2"), "raceHudElementsSheet_34");
-            AssertSpriteName(FindChild(hudPrefab, "chest3"), "raceHudElementsSheet_36");
-            AssertFloatingChest(hudPrefab, "chest1", 12f, 1.8f, 0f);
-            AssertFloatingChest(hudPrefab, "chest2", 10f, 1.9f, 0.35f);
-            AssertFloatingChest(hudPrefab, "chest3", 10f, 1.7f, 0.7f);
-            Assert.IsFalse(FindChild(hudPrefab, "FinishStripe").activeSelf);
-
-            var expectedSlotYPositions = new[] { -558f, -728f, -894f, -1090f, -1276f };
-            for (var i = 1; i <= 5; i++)
-            {
-                var slot = FindChild(hudPrefab, "RankSlot_" + i.ToString());
-                Assert.NotNull(slot);
-                AssertVector2(new Vector2(0f, expectedSlotYPositions[i - 1]), slot.GetComponent<RectTransform>().anchoredPosition);
-            }
-
-            AssertSkyRaceHudRow(hudPrefab, "RacerRow_player", "player", "raceHudElementsSheet_23", "raceHudElementsSheet_24", "raceHudElementsSheet_22");
-            AssertSkyRaceHudRow(hudPrefab, "RacerRow_ai_01", "ai_01", "raceHudElementsSheet_16", "raceHudElementsSheet_17", "raceHudElementsSheet_15");
-            AssertSkyRaceHudRow(hudPrefab, "RacerRow_ai_02", "ai_02", "raceHudElementsSheet_20", "raceHudElementsSheet_21", "raceHudElementsSheet_19");
-            AssertSkyRaceHudRow(hudPrefab, "RacerRow_ai_03", "ai_03", "raceHudElementsSheet_27", "raceHudElementsSheet_28", "raceHudElementsSheet_26");
-            AssertSkyRaceHudRow(hudPrefab, "RacerRow_ai_04", "ai_04", "raceHudElementsSheet_31", "raceHudElementsSheet_32", "raceHudElementsSheet_30");
         }
 
         [Test]

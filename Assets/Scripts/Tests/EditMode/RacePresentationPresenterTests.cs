@@ -766,7 +766,7 @@ namespace ThreadRace.Tests.EditMode
 
             presenter.Initialize();
 
-            Assert.AreEqual("TIME LEFT: 3d 00h", view.DurationLine);
+            Assert.AreEqual("TIME LEFT: 30m", view.DurationLine);
             Assert.IsTrue(view.StartEnabled);
         }
 

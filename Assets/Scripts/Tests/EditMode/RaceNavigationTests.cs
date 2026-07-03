@@ -56,65 +56,6 @@ namespace ThreadRace.Tests.EditMode
         }
 
         [Test]
-        public void NavbarItem_ActiveStateScalesBackgroundFromBottom()
-        {
-            var itemObject = new GameObject("Item", typeof(RectTransform), typeof(Canvas), typeof(NavbarItem));
-            var backgroundObject = new GameObject("Background", typeof(RectTransform), typeof(Image));
-
-            try
-            {
-                var itemRect = itemObject.GetComponent<RectTransform>();
-                itemRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 216f);
-                itemRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 190f);
-
-                var backgroundRect = backgroundObject.GetComponent<RectTransform>();
-                backgroundRect.SetParent(itemRect, false);
-                backgroundRect.anchorMin = new Vector2(0f, 0f);
-                backgroundRect.anchorMax = new Vector2(1f, 1f);
-                backgroundRect.pivot = new Vector2(0.5f, 0f);
-
-                var item = itemObject.GetComponent<NavbarItem>();
-                var itemCanvas = itemObject.GetComponent<Canvas>();
-                var serialized = new SerializedObject(item);
-                serialized.FindProperty("_backgroundTransform").objectReferenceValue = backgroundRect;
-                serialized.FindProperty("_backgroundImage").objectReferenceValue = backgroundObject.GetComponent<Image>();
-                serialized.FindProperty("_sortingCanvas").objectReferenceValue = itemCanvas;
-                serialized.FindProperty("_activeBackgroundScale").vector2Value = new Vector2(232f / 166f, 219f / 173f);
-                serialized.FindProperty("_inactiveBackgroundScale").vector2Value = Vector2.one;
-                serialized.FindProperty("_activeBackgroundYOffset").floatValue = 3f;
-                serialized.FindProperty("_activeSortingOrder").intValue = 30;
-                serialized.FindProperty("_inactiveSortingOrder").intValue = 0;
-                serialized.ApplyModifiedPropertiesWithoutUndo();
-
-                item.Initialize(2);
-                item.SetActiveState(true);
-                AssertVector2(new Vector2(232f / 166f, 219f / 173f), new Vector2(backgroundRect.localScale.x, backgroundRect.localScale.y));
-                Assert.AreEqual(3f, backgroundRect.anchoredPosition.y, 0.01f);
-                Assert.IsTrue(itemCanvas.overrideSorting);
-                Assert.AreEqual(30, itemCanvas.sortingOrder);
-
-                item.SetSelectionSortingEnabled(false);
-                Assert.IsFalse(itemCanvas.overrideSorting);
-                Assert.AreEqual(0, itemCanvas.sortingOrder);
-
-                item.SetSelectionSortingEnabled(true);
-                Assert.IsTrue(itemCanvas.overrideSorting);
-                Assert.AreEqual(30, itemCanvas.sortingOrder);
-
-                item.SetActiveState(false);
-                AssertVector2(Vector2.one, new Vector2(backgroundRect.localScale.x, backgroundRect.localScale.y));
-                Assert.AreEqual(0f, backgroundRect.anchoredPosition.y, 0.01f);
-                Assert.IsFalse(itemCanvas.overrideSorting);
-                Assert.AreEqual(0, itemCanvas.sortingOrder);
-            }
-            finally
-            {
-                Object.DestroyImmediate(backgroundObject);
-                Object.DestroyImmediate(itemObject);
-            }
-        }
-
-        [Test]
         public void LockedNavbarTooltip_MirrorsOnlyBackgroundForLeftSource()
         {
             var parentObject = new GameObject("Parent", typeof(RectTransform), typeof(Canvas));

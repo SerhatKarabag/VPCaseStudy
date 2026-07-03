@@ -8,7 +8,7 @@
 
 **Final user state:** Project is complete and ready for company submission.
 
-**Final update date:** 2026-07-03
+**Final update date:** 2026-07-04
 
 **Main scene:** `Assets/Scenes/ThreadRace_Main.unity`
 
@@ -490,6 +490,8 @@ The README contains the required AI section: tools used, where AI helped, one co
 | 2026-07-03 | Race resolves when top-three reward slots are filled | Case brief allowed documenting the end condition; lower placements do not affect rewards after all podium slots are gone |
 | 2026-07-03 | Countdown is visible before Start | Present the event as an active Royal Match Sky Race-style live-ops window that the player joins |
 | 2026-07-03 | AGENTS countdown requirement aligned with original brief | The case document marks multi-day countdown as nice-to-have and does not require a three-day default |
+| 2026-07-04 | AGENTS countdown clarification made explicit | Do not infer a three-day default or Start-created timer from project guidance; original brief remains source of truth |
+| 2026-07-04 | Optional UI validation tests pruned | Removed brittle nav/main-menu/HUD layout assertions at user request; core gameplay and required prefab smoke coverage remains |
 
 ---
 

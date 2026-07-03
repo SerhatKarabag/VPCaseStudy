@@ -40,6 +40,12 @@ Priority order when sources conflict:
 
 Do not silently reinterpret requirements.
 
+Countdown clarification:
+
+- The original case-study document only lists a configurable multi-day countdown as a nice-to-have.
+- Do not treat a three-day default duration as an original-case requirement unless the latest user instruction explicitly adds it.
+- Do not treat Start-triggered countdown creation as an original-case requirement. If countdown exists, the documented project policy decides whether Start creates a window or joins an active window.
+
 If an instruction or project state changes:
 
 - Update `PLAN.md`
