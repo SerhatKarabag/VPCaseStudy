@@ -442,7 +442,6 @@ How AI output was verified:
 - Shop and Leaderboard are presentation-only shell content. They are included to make the event feel embedded in a real game, not to add economy or backend scope.
 - The current demo event duration is short for recording and review. Production duration is data-driven.
 - There is no analytics/backend reward grant integration. Rewards are represented as local event outcome data.
-- Demo video or hosted build links should be attached separately with the final submission package.
 
 ## What I Would Improve With One More Day
 
