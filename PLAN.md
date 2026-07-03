@@ -77,8 +77,8 @@ Rules:
 
 1. Record a racer’s finish position the first time it reaches the finish step.
 2. If the player reaches the finish, the player’s rank is immediately fixed.
-3. If the player finishes after three AI racers, the player is rank 4 and receives no reward.
-4. If all four AI racers finish before the player, the player becomes rank 5 / DNF.
+3. If the top-three reward positions are filled before the player finishes, the player's reward outcome is final and the player receives no reward.
+4. The event does not continue simulating only to assign cosmetic 4th/5th placements after all reward slots are gone.
 5. Transition to `Reward` immediately after the player result is known.
 6. If the event timer expires before the player finishes, resolve EventExpired DNF with no reward.
 7. Stop AI simulation after result resolution.
@@ -91,8 +91,8 @@ This supports:
 - 1st place
 - 2nd place
 - 3rd place
-- 4th place
-- 5th / DNF
+- top-three-filled DNF/no reward
+- event-expired DNF/no reward
 
 ---
 
@@ -1248,6 +1248,10 @@ Current submission-doc decision:
 7. Finish or loss
 8. Reward/no-reward result
 9. Brief config/architecture shot if time permits
+
+Submitted demo video:
+
+- [YouTube Shorts](https://youtube.com/shorts/h3hAK5zwKgo?si=MPjAOpBHNaINDq1a)
 
 ---
 

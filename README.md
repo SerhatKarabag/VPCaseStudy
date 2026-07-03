@@ -18,6 +18,7 @@ The goal of the case study was not to ship the largest feature set. The goal was
 | Required UI art | `Assets/2D Game UI Kit` |
 | Namespace root | `ThreadRace` |
 | Demo config | 1 player, 4 AI racers, finish target `10`, rank `1-3` rewards |
+| Demo video | [YouTube Shorts](https://youtube.com/shorts/h3hAK5zwKgo?si=MPjAOpBHNaINDq1a) |
 
 ## Experience Overview
 
@@ -25,7 +26,7 @@ The project is framed as a real game module rather than a throwaway test scene.
 
 - A main-menu shell presents Shop, Home, Leaderboard, and locked Coming Soon navigation entries.
 - The Home page has a persistent host-game Play button and a Thread Race live-event entry button.
-- The Thread Race entry shows the live countdown, event goal, and reward preview.
+- The Thread Race entry shows the live countdown, event goal, and reward preview before the player joins, matching the feel of an already-active live event like Royal Match Sky Race.
 - Starting the event opens a Sky Race-inspired HUD with five lanes, a finish stripe, rank badges, progress markers, reward podium, countdown, and overtake feedback.
 - The host-game placeholder level flow is separate from the event popup. Success and Fail are accepted through an integration abstraction, then forwarded to the race only if the event is running.
 - Success advances the player by one step. Fail does not advance the player.
@@ -33,6 +34,8 @@ The project is framed as a real game module rather than a throwaway test scene.
 - Ranking updates while racers overtake each other.
 - The result popup shows final placement or DNF, reward eligibility, reward claim state, and a top-three podium.
 - Completed or expired events remain visible as `ENDED`, and Home Play continues to work because host gameplay is independent from the event lifecycle.
+
+Demo video: [https://youtube.com/shorts/h3hAK5zwKgo?si=MPjAOpBHNaINDq1a](https://youtube.com/shorts/h3hAK5zwKgo?si=MPjAOpBHNaINDq1a)
 
 ## Project Structure
 
@@ -239,7 +242,7 @@ The current demo asset is:
   - `ai_03` / `Mina` / `Closer`
   - `ai_04` / `Rex` / `Wildcard`
 
-Production-duration tuning is data-only. The demo duration can be changed from `RaceEventConfigAsset.asset` without rewriting gameplay code.
+Production-duration tuning is data-only. The demo duration can be changed from `RaceEventConfigAsset.asset` without rewriting gameplay code. The countdown is intentionally visible before Start so the event reads as an active live-ops window the player can join, rather than a timer created only after opting in.
 
 ## Race Rules
 
@@ -262,12 +265,13 @@ Resolution rules:
 4. Progress is capped at the finish target.
 5. A racer's finish position is recorded only the first time it reaches the finish.
 6. If the player reaches the finish, their final rank is locked immediately.
-7. If all reward positions are already filled before the player finishes, the player is DNF/no reward.
-8. If the timer expires before the player finishes, the player is EventExpired DNF/no reward.
-9. Only ranks `1-3` map to rewards.
-10. Rank 4, rank 5, expired, and DNF outcomes receive no reward.
-11. A reward is never granted unless the player reached the finish.
-12. Reward claiming is guarded so it cannot be claimed twice.
+7. The exact race-end moment is intentionally documented here because the brief leaves that decision to the implementation.
+8. This implementation is outcome-driven: once the top-three reward positions are filled before the player finishes, the player's reward outcome is irreversible, so the event resolves immediately as DNF/no reward.
+9. The event does not continue simulating just to assign cosmetic 4th/5th ranks after the reward outcome is already known.
+10. If the timer expires before the player finishes, the player is EventExpired DNF/no reward.
+11. Only ranks `1-3` map to rewards.
+12. A reward is never granted unless the player reached the finish.
+13. Reward claiming is guarded so it cannot be claimed twice.
 
 ## AI Simulation
 
@@ -351,7 +355,7 @@ Coverage areas:
 - deterministic ranking and tie handling
 - finish order recorded once
 - reward mapping for ranks 1-3
-- no reward for rank 4, rank 5, DNF, or expired state
+- no reward after top-three reward slots fill, DNF, or expired state
 - reward cannot be claimed twice
 - valid and invalid state transitions
 - deterministic AI continuation
@@ -393,7 +397,7 @@ Recommended validation before recording:
 - verify Fail does not advance player
 - verify AI movement starts only after Start
 - verify countdown and expiration behavior
-- verify rank 1-3 reward and rank 4/5/DNF no-reward states
+- verify rank 1-3 reward and no-reward states when top-three reward slots fill, the player DNFs, or the event expires
 
 ## AI Tools Used
 
@@ -441,6 +445,8 @@ How AI output was verified:
 - The host game level is intentionally a placeholder. It exists to prove event integration, not to implement a full puzzle game.
 - Shop and Leaderboard are presentation-only shell content. They are included to make the event feel embedded in a real game, not to add economy or backend scope.
 - The current demo event duration is short for recording and review. Production duration is data-driven.
+- The countdown starts visually before player entry by design, because the event is presented as an active live-ops window inspired by Royal Match Sky Race; pressing Start joins that window and starts race progression.
+- The event resolves when the top-three reward positions are filled before the player finishes. It does not keep running for cosmetic lower-rank placement because no additional reward outcome can change.
 - There is no analytics/backend reward grant integration. Rewards are represented as local event outcome data.
 
 ## What I Would Improve With One More Day
@@ -451,4 +457,4 @@ How AI output was verified:
 - Add localization keys for all user-facing strings.
 - Add analytics event interfaces for start, progress, rank change, finish, DNF, reward claim, and expiration.
 - Add a lightweight debug panel for seed/event reset/time-skip testing, excluded from production builds.
-- Record and attach a polished 60-90 second demo video showing Entry, Start, AI overtakes, Success/Fail, result, and reward/no-reward states.
+- Add an optional hosted playable/WebGL build in addition to the recorded demo video.

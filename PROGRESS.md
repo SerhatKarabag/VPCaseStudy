@@ -40,7 +40,7 @@ The project is now presented as a finished Unity case-study module, not an in-pr
 | Expiration DNF/no reward | Complete | `RaceCompletionReason.EventExpired` and no-reward result path |
 | Dynamic ranking/overtakes | Complete | Rank snapshots, lane reorder, row/rank punch feedback |
 | Rewards only rank 1-3 | Complete | Config-driven reward tiers for ranks 1, 2, and 3 |
-| No reward for rank 4/5/DNF | Complete | Reward eligibility requires player finish and reward-tier rank |
+| No reward after top-three slots fill / DNF | Complete | Reward eligibility requires player finish before all reward positions are filled |
 | AI usage documented | Complete | README and AI workflow log document tools, corrections, and verification |
 | README | Complete | `README.md` rewritten as final external-facing submission document |
 
@@ -390,7 +390,7 @@ Primary covered areas:
 - ranking and tie policy
 - finish order once
 - top-three reward mapping
-- rank 4/5/DNF no reward
+- no reward after top-three reward slots fill, DNF, or expiration
 - player must finish to receive reward
 - reward cannot be claimed twice
 - state transitions
@@ -487,6 +487,8 @@ The README contains the required AI section: tools used, where AI helped, one co
 | 2026-07-03 | Host level progress service | Keep presenter focused on UI and move persistence behind service |
 | 2026-07-03 | README is final submission document | Company review asks for structure, architecture decisions, AI usage, verification, and one-more-day improvements |
 | 2026-07-03 | PROGRESS is final tracker | Clean repository presentation matters for case-study review |
+| 2026-07-03 | Race resolves when top-three reward slots are filled | Case brief allowed documenting the end condition; lower placements do not affect rewards after all podium slots are gone |
+| 2026-07-03 | Countdown is visible before Start | Present the event as an active Royal Match Sky Race-style live-ops window that the player joins |
 
 ---
 
@@ -496,7 +498,7 @@ The README contains the required AI section: tools used, where AI helped, one co
 - `PROGRESS.md` is now a clean final tracker, not a raw work journal.
 - `PLAN.md` remains the implementation plan and decision context.
 - The project intentionally keeps host gameplay, shop, leaderboard, analytics, backend time, and economy as scoped placeholders or future work.
-- Demo video/playable delivery is handled as a submission artifact outside the Unity source tree unless explicitly added later.
+- Demo video is hosted as a submission artifact: [YouTube Shorts](https://youtube.com/shorts/h3hAK5zwKgo?si=MPjAOpBHNaINDq1a).
 
 ---
 
