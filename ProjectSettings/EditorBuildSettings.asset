@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ThreadRace/Scenes/ThreadRace_Demo.unity
+    path: Assets/Scenes/ThreadRace_Main.unity
     guid: dd996d333d66e3143910ec3a14e7a8a2
   m_configObjects: {}

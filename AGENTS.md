@@ -67,6 +67,10 @@ The final submission must include:
 - Player advances by one step on **Success**
 - Player does not advance on **Fail**
 - AI opponents advance independently over time
+- The event has a configurable multi-day countdown, defaulting to exactly three days
+- The countdown starts only when the player presses Start
+- Running AI progress catches up deterministically from elapsed UTC time when the app is restored
+- Event expiration resolves an unfinished player as DNF with no reward
 - Ranking updates while racers overtake each other
 - Rewards only for ranks 1–3
 - The player receives a reward only if the player reaches the finish
@@ -88,7 +92,7 @@ Use the following unless the user explicitly changes them:
 - Orientation: Portrait
 - Reference resolution: `1080 × 1920`
 - Namespace root: `ThreadRace`
-- Main demo scene: `Assets/ThreadRace/Scenes/ThreadRace_Demo.unity`
+- Main demo scene: `Assets/Scenes/ThreadRace_Main.unity`
 
 ### URP is the approved rendering pipeline
 
@@ -264,6 +268,7 @@ RacePresentationConfig : immutable/plain runtime model
 - Save key
 - Random seed settings
 - Optional event duration
+- Countdown update interval
 - Race resolution settings
 
 ### `RacePresentationConfigAsset` may contain
@@ -464,6 +469,7 @@ Rules:
 - Initial event state is `Entry`
 - AI movement does not begin before Start
 - Start transitions to `Racing`
+- Start captures UTC start/end timestamps and activates the countdown
 - Save immediately after race start
 
 ### Player progress
@@ -480,6 +486,8 @@ Rules:
 - AI movement occurs only in `Racing`
 - AI movement stops in `Results` and `Completed`
 - AI behavior is deterministic when using a fixed seed
+- Running AI progression catches up from persisted UTC elapsed time when the app is restored
+- Offline catch-up is capped at the configured event end timestamp
 - Winning is possible but not guaranteed
 - Do not use obviously unfair last-second cheating
 
@@ -489,11 +497,19 @@ Rules:
 2. If the player reaches the finish, the player’s final rank is fixed immediately.
 3. If all four AI racers finish before the player, the player is rank 5 / DNF.
 4. Transition to `Results` as soon as the player outcome becomes irreversible.
-5. Rank 1–3 receives configured rewards.
-6. Rank 4, rank 5, or DNF receives no reward.
-7. A reward is never granted unless the player reached the finish.
+5. If the event timer expires before the player finishes, the player is DNF with no reward.
+6. Rank 1–3 receives configured rewards.
+7. Rank 4, rank 5, expired, or DNF receives no reward.
+8. A reward is never granted unless the player reached the finish.
 
 Document this rule in the final README.
+
+### Time authority limitation
+
+- Device UTC time is used because this case study has no backend time authority.
+- Effective event time must be monotonic: `max(currentUtc, lastObservedUtc)`.
+- Backwards device-clock changes must not extend the event or create negative offline elapsed time.
+- Large forward device-clock changes may advance or expire the event and must be documented as a limitation.
 
 ---
 
@@ -585,8 +601,12 @@ Persist at minimum:
 - AI next-move timings
 - Seed/random state where needed
 - Player final result
+- Resolution reason
 - Reward claim state
 - Entry accepted state
+- Event start UTC
+- Event end UTC
+- Last observed UTC
 
 Save after:
 
@@ -601,6 +621,7 @@ Save after:
 Restore validation must check:
 
 - Save version
+- Timing state
 - Racer count
 - Racer IDs
 - Progress ranges
@@ -674,6 +695,7 @@ Shows:
 - Event title
 - Short explanation
 - Race target
+- Configured event duration
 - Top-three reward preview
 - Start button
 
@@ -688,6 +710,7 @@ Shows:
 - Finish line
 - Current ranking
 - Prize tiers
+- Active countdown while racing
 - Overtake/finish feedback
 
 ### Placeholder level screen
@@ -702,6 +725,7 @@ Shows only:
 Shows:
 
 - Final rank or DNF
+- Time-expired DNF state when the event expires
 - Reward for top three
 - No-reward state for lower ranks
 - Continue button
@@ -751,41 +775,42 @@ Recommended:
 
 ```text
 Assets/
-  ThreadRace/
-    Runtime/
-      App/
-        Installers/
-      Core/
-        Time/
-        Random/
-        Logging/
-      Gameplay/
-        Domain/
-        Application/
-        Contracts/
-        Config/
-      Infrastructure/
-        Persistence/
-        Randomness/
-        Time/
-        Audio/
-      Presentation/
-        Views/
-        Presenters/
-        Signals/
-        Animation/
-    Tests/
-      EditMode/
-      PlayMode/
-    Scenes/
-    Prefabs/
-      UI/
-      Racers/
-      Effects/
-    ScriptableObjects/
-    Audio/
-    VFX/
-    Art/
+  Runtime/
+    App/
+      Installers/
+    Core/
+      Time/
+      Random/
+      Logging/
+    Gameplay/
+      Domain/
+      Application/
+      Contracts/
+      Config/
+    Infrastructure/
+      Persistence/
+      Randomness/
+      Time/
+      Audio/
+    Presentation/
+      Views/
+      Presenters/
+      Signals/
+      Animation/
+  Tests/
+    EditMode/
+    PlayMode/
+  Scenes/
+  Prefabs/
+    UI/
+    Racers/
+    Effects/
+  ScriptableObjects/
+  Audio/
+    Sounds/
+  Fonts/
+  VFX/
+  Art/
   ThirdParty/
 ```
 

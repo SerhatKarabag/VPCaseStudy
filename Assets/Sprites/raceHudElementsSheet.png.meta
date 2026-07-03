@@ -1,0 +1,914 @@
+fileFormatVersion: 2
+guid: 625af4eee9c5cb4468342a43747a2459
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: raceHudElementsSheet_0
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 264
+        width: 474
+        height: 732
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 086b30a095fee0643ace413b6aa39e22
+      internalID: -1630483640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_1
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 912
+        width: 391
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdb7b741d988c654d8e8604d3a6fb490
+      internalID: 1563867676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_3
+      rect:
+        serializedVersion: 2
+        x: 999
+        y: 900
+        width: 65
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 163c50831d16dae4d8b266e90fc79c12
+      internalID: 674212221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_4
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 900
+        width: 67
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1827268a39a582a43ba2d44aaaf1c975
+      internalID: 1213299739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_5
+      rect:
+        serializedVersion: 2
+        x: 1266
+        y: 882
+        width: 90
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6518ba19a18783f4b9617bfd6f682cf2
+      internalID: 383003989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_6
+      rect:
+        serializedVersion: 2
+        x: 1411
+        y: 897
+        width: 67
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90124c32c18aa114f932c8ba6dbe8ba9
+      internalID: 689799828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_7
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 852
+        width: 53
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f154dd23def48f64296298f81703b2e8
+      internalID: 32921749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_9
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 781
+        width: 62
+        height: 71
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40ad5e23650708148a0503e1be2fd520
+      internalID: 1222357185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_10
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 780
+        width: 66
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d43c88ee11e8d74fa2e1c67769cf772
+      internalID: -692295275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_11
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 780
+        width: 63
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f6495d77ce70fa41a55b0575c51d8e8
+      internalID: 1812796762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_12
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 781
+        width: 66
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74a8496c69cd6424b8cd8d7f4dfbdedb
+      internalID: 892881262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_13
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 781
+        width: 61
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3692211d084034048a575d2f2a436e1b
+      internalID: 286753781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_14
+      rect:
+        serializedVersion: 2
+        x: 1125
+        y: 595
+        width: 231
+        height: 263
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 118c31dfb75b3f74595f9d70e0660693
+      internalID: 530434225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_15
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 678
+        width: 132
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53b619b2e5702064eb98a9bbd1d3b876
+      internalID: 855488356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_16
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 672
+        width: 165
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d1817184e7cc754bb2aa3ef9ca158a8
+      internalID: 1228772815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_17
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 666
+        width: 87
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea6616e30d94f9d4ab23b418f69f765d
+      internalID: 1430101515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_18
+      rect:
+        serializedVersion: 2
+        x: 1362
+        y: 560
+        width: 162
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 223bca612b271f54fb0cd1549ba72c3f
+      internalID: -1613352750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_19
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 586
+        width: 131
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80ae0a9188641d84896f14d927544bdb
+      internalID: -998812438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_20
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 576
+        width: 164
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f84fe93128b46d04284b87a1d1451bba
+      internalID: 816378014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_21
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 576
+        width: 86
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 175526bbeb8f0474a91d5e4e4669e32a
+      internalID: -1372505731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_22
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 492
+        width: 131
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fc0f47fa43c8284d8d4648e4513e8c2
+      internalID: 589943450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_23
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 486
+        width: 168
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 177b2491aa6b1f346977cc8eeddc94a6
+      internalID: 299429831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_24
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 481
+        width: 90
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc4bd5b6fe0419340864280f7ca9b674
+      internalID: -935108500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_25
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 360
+        width: 207
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 973748d0194768d40b08aef6fe395fb1
+      internalID: -1258121493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_26
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 396
+        width: 131
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6386b8a20af843a4fabdda6da359ce9d
+      internalID: -224198225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_27
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 391
+        width: 164
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a609cc3840de0224fb5368d78ea67b53
+      internalID: 1571902517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_28
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 390
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9d214cc16361324ca07ed6560f6cf52
+      internalID: 1128472441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_30
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 306
+        width: 131
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84000c96719504f4cb0915f0be3e77d6
+      internalID: -946915288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_31
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 300
+        width: 164
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7102252b6324f8459c0051660803e46
+      internalID: -808035435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_32
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 300
+        width: 90
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4f3a06c00a3afb4eb11296dd32794c2
+      internalID: -1970643246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_34
+      rect:
+        serializedVersion: 2
+        x: 984
+        y: 120
+        width: 165
+        height: 174
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36c9cfcfae050734c96aa4f64eb3dfb5
+      internalID: -1838372619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_36
+      rect:
+        serializedVersion: 2
+        x: 1347
+        y: 108
+        width: 177
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f38ed98078e43cb4db3d8a209a8d647d
+      internalID: 635422316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_37
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 65
+        width: 176
+        height: 132
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03b02fa686437d944a109c4d9fb5746d
+      internalID: -1113420011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_38
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 43
+        width: 138
+        height: 167
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44b8185c0d6b86f4e91637a286379501
+      internalID: -1630586582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: raceHudElementsSheet_29
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 116
+        width: 196
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f8b355b7a81b4342bd64a72e813b98a
+      internalID: -774432783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5888d7ba1787824468c5de9874bd2095
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      raceHudElementsSheet_0: -1630483640
+      raceHudElementsSheet_1: 1563867676
+      raceHudElementsSheet_10: -692295275
+      raceHudElementsSheet_11: 1812796762
+      raceHudElementsSheet_12: 892881262
+      raceHudElementsSheet_13: 286753781
+      raceHudElementsSheet_14: 530434225
+      raceHudElementsSheet_15: 855488356
+      raceHudElementsSheet_16: 1228772815
+      raceHudElementsSheet_17: 1430101515
+      raceHudElementsSheet_18: -1613352750
+      raceHudElementsSheet_19: -998812438
+      raceHudElementsSheet_2: 386085752
+      raceHudElementsSheet_20: 816378014
+      raceHudElementsSheet_21: -1372505731
+      raceHudElementsSheet_22: 589943450
+      raceHudElementsSheet_23: 299429831
+      raceHudElementsSheet_24: -935108500
+      raceHudElementsSheet_25: -1258121493
+      raceHudElementsSheet_26: -224198225
+      raceHudElementsSheet_27: 1571902517
+      raceHudElementsSheet_28: 1128472441
+      raceHudElementsSheet_29: -774432783
+      raceHudElementsSheet_3: 674212221
+      raceHudElementsSheet_30: -946915288
+      raceHudElementsSheet_31: -808035435
+      raceHudElementsSheet_32: -1970643246
+      raceHudElementsSheet_33: 2063764234
+      raceHudElementsSheet_34: -1838372619
+      raceHudElementsSheet_35: 761246673
+      raceHudElementsSheet_36: 635422316
+      raceHudElementsSheet_37: -1113420011
+      raceHudElementsSheet_38: -1630586582
+      raceHudElementsSheet_4: 1213299739
+      raceHudElementsSheet_5: 383003989
+      raceHudElementsSheet_6: 689799828
+      raceHudElementsSheet_7: 32921749
+      raceHudElementsSheet_8: -631265075
+      raceHudElementsSheet_9: 1222357185
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

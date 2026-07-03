@@ -1,0 +1,143 @@
+using NUnit.Framework;
+using ThreadRace.Core.Progress;
+using ThreadRace.Gameplay.Persistence;
+using ThreadRace.Infrastructure.Persistence;
+using UnityEngine;
+
+namespace ThreadRace.Tests.EditMode
+{
+    public sealed class PlayerPrefsRaceSaveRepositoryTests
+    {
+        private const string TestKey = "ThreadRace.Tests.PlayerPrefsSave";
+        private const string OtherKey = "ThreadRace.Tests.PlayerPrefsOther";
+        private const string HostLevelKey = "ThreadRace.HostLevel.Current";
+
+        [SetUp]
+        public void SetUp()
+        {
+            PlayerPrefs.DeleteKey(TestKey);
+            PlayerPrefs.DeleteKey(OtherKey);
+            PlayerPrefs.DeleteKey(HostLevelKey);
+            PlayerPrefs.Save();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            PlayerPrefs.DeleteKey(TestKey);
+            PlayerPrefs.DeleteKey(OtherKey);
+            PlayerPrefs.DeleteKey(HostLevelKey);
+            PlayerPrefs.Save();
+        }
+
+        [Test]
+        public void MissingKey_ReturnsNotFound()
+        {
+            var result = new PlayerPrefsRaceSaveRepository().Load(TestKey);
+
+            Assert.AreEqual(RaceSaveLoadStatus.NotFound, result.Status);
+        }
+
+        [Test]
+        public void SaveThenLoad_ReturnsEquivalentSaveData()
+        {
+            var repository = new PlayerPrefsRaceSaveRepository();
+            var settings = RaceTestSupport.CreateSettings(rangedAiDelays: true);
+            var saveData = RaceTestSupport.CaptureStartedSave(settings);
+
+            repository.Save(TestKey, saveData);
+            var result = repository.Load(TestKey);
+
+            Assert.AreEqual(RaceSaveLoadStatus.Loaded, result.Status);
+            Assert.AreEqual(RaceTestSupport.SaveSignature(saveData), RaceTestSupport.SaveSignature(result.SaveData));
+        }
+
+        [Test]
+        public void Clear_RemovesOnlyConfiguredKey()
+        {
+            var repository = new PlayerPrefsRaceSaveRepository();
+            var settings = RaceTestSupport.CreateSettings(rangedAiDelays: true);
+            repository.Save(TestKey, RaceTestSupport.CaptureStartedSave(settings));
+            PlayerPrefs.SetString(OtherKey, "keep");
+            PlayerPrefs.Save();
+
+            repository.Clear(TestKey);
+
+            Assert.IsFalse(PlayerPrefs.HasKey(TestKey));
+            Assert.IsTrue(PlayerPrefs.HasKey(OtherKey));
+        }
+
+        [Test]
+        public void MalformedJson_ProducesControlledFailure()
+        {
+            PlayerPrefs.SetString(TestKey, "{ malformed json");
+            PlayerPrefs.Save();
+
+            var result = new PlayerPrefsRaceSaveRepository().Load(TestKey);
+
+            Assert.AreEqual(RaceSaveLoadStatus.Failed, result.Status);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(result.ErrorMessage));
+        }
+
+        [Test]
+        public void EmptyJson_ProducesControlledFailure()
+        {
+            PlayerPrefs.SetString(TestKey, " ");
+            PlayerPrefs.Save();
+
+            var result = new PlayerPrefsRaceSaveRepository().Load(TestKey);
+
+            Assert.AreEqual(RaceSaveLoadStatus.Failed, result.Status);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(result.ErrorMessage));
+        }
+
+        [Test]
+        public void NegativeRandomConsumedCount_ProducesControlledFailure()
+        {
+            PlayerPrefs.SetString(
+                TestKey,
+                "{\"schemaVersion\":1,\"phase\":0,\"racers\":[],\"finishOrder\":[],\"randomConsumedCount\":-1,\"revision\":0}");
+            PlayerPrefs.Save();
+
+            var result = new PlayerPrefsRaceSaveRepository().Load(TestKey);
+
+            Assert.AreEqual(RaceSaveLoadStatus.Failed, result.Status);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(result.ErrorMessage));
+        }
+
+        [Test]
+        public void HostLevelProgress_SaveThenLoadReturnsPersistedLevel()
+        {
+            var repository = new PlayerPrefsHostLevelProgressRepository();
+
+            repository.SaveCurrentLevel(5);
+
+            Assert.AreEqual(5, repository.LoadCurrentLevel());
+        }
+
+        [Test]
+        public void HostLevelProgress_MissingOrInvalidLevelReturnsMinimumLevel()
+        {
+            var repository = new PlayerPrefsHostLevelProgressRepository();
+
+            Assert.AreEqual(1, repository.LoadCurrentLevel());
+
+            PlayerPrefs.SetInt(HostLevelKey, -10);
+            PlayerPrefs.Save();
+
+            Assert.AreEqual(1, repository.LoadCurrentLevel());
+        }
+
+        [Test]
+        public void HostLevelProgressService_AdvancesThroughRepository()
+        {
+            var repository = new PlayerPrefsHostLevelProgressRepository();
+            repository.SaveCurrentLevel(5);
+            var service = new HostLevelProgressService(repository);
+
+            Assert.AreEqual(5, service.LoadCurrentLevel());
+            Assert.AreEqual(6, service.AdvanceAfterSuccess());
+            Assert.AreEqual(6, repository.LoadCurrentLevel());
+        }
+    }
+}

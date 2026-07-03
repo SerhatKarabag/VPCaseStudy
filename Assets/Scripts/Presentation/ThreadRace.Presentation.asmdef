@@ -1,0 +1,20 @@
+{
+    "name": "ThreadRace.Presentation",
+    "rootNamespace": "ThreadRace.Presentation",
+    "references": [
+        "ThreadRace.Core",
+        "ThreadRace.Gameplay",
+        "Zenject",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

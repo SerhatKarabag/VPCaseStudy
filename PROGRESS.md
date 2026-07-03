@@ -1,622 +1,536 @@
-# PROGRESS.md - Thread Race Development Tracker
+# PROGRESS.md - Thread Race Final Tracker
 
-## 1. Current status
+## 1. Current Status
 
-**Overall status:** `MILESTONE_2_COMPLETE`
+**Overall status:** `READY_FOR_SUBMISSION`
 
-**Active milestone:** Milestone 3 - UI structure with required UI Kit
+**Project:** Thread Race live-event case study for Thread Fever
 
-**Milestone 0 verification:** `USER_VERIFIED`
+**Final user state:** Project is complete and ready for company submission.
 
-**Milestone 1 verification:** `USER_VERIFIED`
+**Final update date:** 2026-07-03
 
-**Milestone 1 status:** `COMPLETE`
+**Main scene:** `Assets/Scenes/ThreadRace_Main.unity`
 
-**Milestone 2 verification:** `USER_VERIFIED`
+**Submission README:** `README.md`
 
-**Milestone 2 status:** `COMPLETE`
-
-**Current gate:** Milestone 2 simulation/persistence foundation, runtime config asset, ProjectContext composition, scene config reference, and EditMode tests are complete and manually verified. Milestone 3 is next but has not started; wait for explicit approval before implementation.
-
-**Deadline:** One week from receiving the brief
+The project is now presented as a finished Unity case-study module, not an in-progress milestone log. Earlier milestone notes, temporary debugging notes, batch-run notes, and crash-recovery details were consolidated into this final tracker so the repository reads cleanly during review.
 
 ---
 
-## 2. Confirmed setup
+## 2. Final Compliance Summary
 
-| Item | Status | Notes |
+| Requirement | Status | Evidence |
 |---|---|---|
-| Project root | VERIFIED | `C:\Users\user\Desktop\VPCaseStudy` |
-| Unity version | VERIFIED | `2022.3.62f2 (7670c08855a9)` from `ProjectSettings/ProjectVersion.txt`; batch executable `C:\Program Files\Unity\Hub\Editor\2022.3.62f2\Editor\Unity.exe` |
-| Manual Unity verification | USER_VERIFIED | User verified Milestones 0, 1, and 2 import/compile completed in Unity `2022.3.62f2` with no blocking red compile errors |
-| URP package | VERIFIED | `com.unity.render-pipelines.universal` = `14.0.12` |
-| Rendering pipeline | LOCKED | URP remains active; no migration to Built-in |
-| Active Graphics URP asset | RECORDED | `Assets/Settings/URP-HighFidelity.asset` via `ProjectSettings/GraphicsSettings.asset` |
-| Current editor quality | RECORDED | Quality index `2` = High Fidelity |
-| Android/iPhone default quality | RECORDED | Both default to quality index `1` = Balanced |
-| Extenject | INSTALLED | `Assets/Plugins/Zenject`; `Version.txt` = `9.1.0`; package display name `Extenject` |
-| DOTween | INSTALLED_SETUP | `Assets/Plugins/Demigiant/DOTween`; `DOTWEEN` scripting define present; standard `DOTweenModuleUI.cs` exists; no DOTween Pro TMP module required |
-| TextMeshPro | INSTALLED | Package `3.0.7`; Essentials present at `Assets/TextMesh Pro/Resources/TMP Settings.asset` |
-| Required UI Kit | INSTALLED | `Assets/300Mind/2D Game UI Kit`; `Help.pdf` title identifies `2D Mobile Game UI Kit`; no explicit semantic version file found |
-| Git repository | COMMITTED | Branch `main`; initial commit `513337d2a30b399e59cdd19f173a1e505fd1c03e`; milestone commits are created only after user approval |
-| Unity `.gitignore` | CREATED | `Library/`, `Temp/`, `Logs/`, `Obj/`, `UserSettings/`, generated `.csproj`, generated `.sln`, IDE files, and build outputs ignored |
-| Unity generated folders | CONFIRMED | `Library/`, `Logs/`, and `UserSettings/` currently exist; `Temp/` and `Obj/` absent at inspection time |
-| Portrait settings | APPLIED | Set through Unity PlayerSettings API; serialized as `defaultScreenOrientation: 0`, `useOSAutorotation: 0`, portrait allowed, upside-down/landscapes disabled |
-| ThreadRace folders | CREATED | Approved folder skeleton exists under `Assets/ThreadRace` |
-| ThreadRace asmdefs | CREATED | Six planned assemblies exist; `ThreadRace.Gameplay` has `noEngineReferences: true` |
-| Milestone 1 domain/config | IMPLEMENTED | Unity-independent runtime config, racer identity/state, lifecycle, ranking, finish resolution, and immutable snapshots |
-| Milestone 1 deterministic randomness | IMPLEMENTED | Core random abstraction plus seeded infrastructure implementation; no `UnityEngine.Random` |
-| Milestone 1 EditMode tests | USER_VERIFIED_PASS | User verified all 31 ThreadRace EditMode tests passed; batch XML also reported 31 ThreadRace tests and 452/452 full EditMode tests passed |
-| Milestone 2 runtime settings | IMPLEMENTED | `RaceEventSettings` wraps validated `RaceConfiguration`, save schema version, save key, and explicit default seed |
-| Race config asset | CREATED | `Assets/ThreadRace/ScriptableObjects/RaceEventConfigAsset.asset`; schema `1`; save key `ThreadRace.Save.V1`; seed `26062026`; finish target `10`; rewarded positions `3`; racers `player`, `ai_01`, `ai_02`, `ai_03`, `ai_04` |
-| Persistence | IMPLEMENTED | Gameplay save model, `IRaceSaveRepository`, strict mapper/validator, and Infrastructure `PlayerPrefsRaceSaveRepository` using JSON DTOs |
-| Deterministic restoration | IMPLEMENTED | `SeededRandomSource` now uses explicit LCG state via `DeterministicRandomState`; no `System.Random` internals or `UnityEngine.Random` |
-| Application controller | IMPLEMENTED | `RaceEventController` restores valid saves, surfaces invalid saves, saves after meaningful mutations, and exposes `ILevelResultHandler` |
-| Simulation driver | IMPLEMENTED | Single App-level `RaceSimulationDriver : ITickable` advances the controller using `IRaceTimeProvider.UnscaledDeltaTime` only while running |
-| Milestone 2 EditMode tests | USER_VERIFIED_PASS | User verified all 86 ThreadRace EditMode tests passed; batch XML also reported 86 ThreadRace tests and 507/507 full EditMode tests passed |
-| Extenject composition | IMPLEMENTED | `ThreadRaceProjectInstaller` binds time, random factory, and save repository; `ThreadRaceSceneInstaller` binds runtime settings, mapper, controller, level-result handler, and central tick driver |
-| Scene foundation | CREATED | `Assets/ThreadRace/Scenes/ThreadRace_Demo.unity` created through Unity batch-mode Editor automation |
-| SceneContext | USER_VERIFIED | Scene has `Zenject.SceneContext` and registered `ThreadRaceSceneInstaller` MonoInstaller |
-| ProjectContext | CREATED | `Assets/Resources/ProjectContext.prefab` created through Unity Editor automation; contains one `Zenject.ProjectContext` and one `ThreadRaceProjectInstaller` |
-| Scene installer config | USER_VERIFIED | User verified `ThreadRaceSceneInstaller` references `RaceEventConfigAsset.asset`; hierarchy and Canvas settings preserved |
-| Build Settings | USER_VERIFIED | `ThreadRace_Demo.unity` is first enabled build scene; SampleScene entry removed from Build Settings without deleting the file |
+| Unity 2022.3 LTS | Complete | `ProjectSettings/ProjectVersion.txt` = `2022.3.62f2` |
+| URP | Complete | `com.unity.render-pipelines.universal` = `14.0.12`; URP assets under `Assets/Settings` |
+| Mobile portrait target | Complete | Main Canvas reference resolution `1080 x 1920`; portrait-oriented UI |
+| Main scene | Complete | `Assets/Scenes/ThreadRace_Main.unity` |
+| Proper Unity `.gitignore` | Complete | Unity generated folders, IDE files, build outputs, logs, and user settings ignored |
+| Required UI Kit | Complete | `Assets/2D Game UI Kit` used for event UI, shop cards, rewards, and visual panels |
+| DOTween | Complete | `Assets/Plugins/Demigiant/DOTween`; DOTween-driven popup, button, row, and progress motion |
+| Extenject | Complete | `Assets/Plugins/Zenject`; `Version.txt` = `9.1.0` |
+| Five racers | Complete | Player plus four AI racers in `RaceEventConfigAsset.asset` |
+| Finish line at 10 | Complete | `_finishTarget: 10` in `RaceEventConfigAsset.asset` |
+| Success advances player | Complete | Covered by gameplay rules/tests |
+| Fail does not advance player | Complete | Covered by gameplay rules/tests |
+| Independent AI progress | Complete | Central `RaceSimulationDriver : ITickable` plus deterministic AI race plans |
+| Countdown/event timer | Complete | UTC-backed timing state and countdown presentation |
+| Offline catch-up | Complete | Running saves apply deterministic elapsed-UTC AI catch-up |
+| Expiration DNF/no reward | Complete | `RaceCompletionReason.EventExpired` and no-reward result path |
+| Dynamic ranking/overtakes | Complete | Rank snapshots, lane reorder, row/rank punch feedback |
+| Rewards only rank 1-3 | Complete | Config-driven reward tiers for ranks 1, 2, and 3 |
+| No reward for rank 4/5/DNF | Complete | Reward eligibility requires player finish and reward-tier rank |
+| AI usage documented | Complete | README and AI workflow log document tools, corrections, and verification |
+| README | Complete | `README.md` rewritten as final external-facing submission document |
 
 ---
 
-## 3. Assembly graph
+## 3. Technical Baseline
 
-| Assembly | References | Notes |
-|---|---|---|
-| `ThreadRace.Core` | none | `noEngineReferences: true` |
-| `ThreadRace.Gameplay` | `ThreadRace.Core` | `noEngineReferences: true`; no Unity/Extenject/DOTween/UI references |
-| `ThreadRace.Infrastructure` | `ThreadRace.Core`, `ThreadRace.Gameplay` | Runtime implementations placeholder assembly |
-| `ThreadRace.Presentation` | `ThreadRace.Core`, `ThreadRace.Gameplay`, `Zenject` | DOTween reference intentionally deferred until scripts require it |
-| `ThreadRace.App` | `ThreadRace.Core`, `ThreadRace.Gameplay`, `ThreadRace.Infrastructure`, `ThreadRace.Presentation`, `Zenject` | Contains Extenject installers and the central `ITickable` simulation driver |
-| `ThreadRace.Tests` | `ThreadRace.Core`, `ThreadRace.Gameplay`, `ThreadRace.Infrastructure`, `ThreadRace.App`, `Zenject`, Unity Test Framework | Editor-only, `UNITY_INCLUDE_TESTS`, `nunit.framework.dll`, `TestAssemblies` marker; App reference is present to test `RaceSimulationDriver` |
+| Area | Final state |
+|---|---|
+| Unity | `2022.3.62f2 (7670c08855a9)` |
+| Render pipeline | Universal Render Pipeline |
+| URP package | `14.0.12` |
+| UI | uGUI + TextMeshPro |
+| Animation | DOTween |
+| Dependency injection | Extenject / Zenject |
+| Orientation | Mobile portrait |
+| Reference resolution | `1080 x 1920` |
+| Namespace root | `ThreadRace` |
+| Main scene | `Assets/Scenes/ThreadRace_Main.unity` |
+| Build Settings | Thread Race main scene is the enabled project scene |
+| Save backend | PlayerPrefs JSON repository behind gameplay contract |
+| Time authority | Device UTC, monotonic last-observed guard |
 
-No circular references were introduced.
+URP remains the approved rendering pipeline. No conversion to the Built-in Render Pipeline was performed.
 
 ---
 
-## 4. Scene foundation
-
-Scene path:
+## 4. Final Project Structure
 
 ```text
-Assets/ThreadRace/Scenes/ThreadRace_Demo.unity
+Assets/
+  Scenes/
+    ThreadRace_Main.unity
+
+  Scripts/
+    Core/
+      Audio/
+      Progress/
+      Random/
+      Time/
+
+    Gameplay/
+      Application/
+      Config/
+      Contracts/
+      Domain/
+      Persistence/
+
+    Infrastructure/
+      Audio/
+      Config/
+      Persistence/
+      Randomness/
+      Time/
+
+    Presentation/
+      Animation/
+      Models/
+      Navigation/
+      Presenters/
+      Signals/
+      Views/
+
+    App/
+      Installers/
+      Runtime drivers and composition glue
+
+    Tests/
+      EditMode/
+
+  Prefabs/
+    UI/
+
+  ScriptableObjects/
+    RaceEventConfigAsset.asset
+
+  Audio/
+    Sounds/
+
+  Fonts/
+  Resources/
+  Settings/
+  Sprites/
+  2D Game UI Kit/
+  Plugins/
 ```
 
-Intended hierarchy created:
-
-```text
-ThreadRace_Demo
-  SceneContext
-  ThreadRaceSceneInstaller
-  Main Camera
-  EventSystem
-  Canvas
-    SafeArea
-      EntryLayer
-      RaceHudLayer
-      LevelResultLayer
-      ResultLayer
-      OverlayLayer
-```
-
-Scene details recorded from YAML inspection:
-
-- `SceneContext` has `_monoInstallers` entry referencing `ThreadRaceSceneInstaller`.
-- `Main Camera` is tagged `MainCamera`, enabled, orthographic, and uses a solid background.
-- `EventSystem` exists with the standard `StandaloneInputModule`; no new Input System package was installed.
-- `Canvas` render mode is Screen Space Overlay (`m_RenderMode: 0`) with `CanvasScaler`:
-  - `m_UiScaleMode: 1` (Scale With Screen Size)
-  - `m_ReferenceResolution: {x: 1080, y: 1920}`
-  - `m_ScreenMatchMode: 0` (Match Width Or Height)
-  - `m_MatchWidthOrHeight: 0.5`
-  - `m_ReferencePixelsPerUnit: 100`
-- `SafeArea` and each layer have full-stretch anchors, zero offsets, pivot `0.5, 0.5`, and local scale `1,1,1`.
-- No UI Kit visuals, race logic, AI, persistence, rewards, DOTween animations, audio, or VFX were added.
+The project now uses a flat, review-friendly `Assets` structure instead of burying all feature code under a duplicate wrapper folder.
 
 ---
 
-## 5. URP findings
+## 5. Assembly and Dependency Boundaries
 
-| Asset | Path | Renderer | Key settings |
+```text
+ThreadRace.Core
+      ^
+      |
+ThreadRace.Gameplay
+      ^                         ^
+      |                         |
+ThreadRace.Infrastructure   ThreadRace.Presentation
+          \                 /
+           \               /
+            ThreadRace.App
+```
+
+| Assembly | Responsibility | Notes |
+|---|---|---|
+| `ThreadRace.Core` | Small shared contracts: time, random, audio cues, host progress | `noEngineReferences: true` |
+| `ThreadRace.Gameplay` | Pure rules, config models, runtime state, AI plans, ranking, result, persistence contracts | `noEngineReferences: true`; references only `ThreadRace.Core` |
+| `ThreadRace.Infrastructure` | Unity adapters for PlayerPrefs, time, random, ScriptableObject config, audio | Depends on Core + Gameplay |
+| `ThreadRace.Presentation` | Views, presenters, models, signals, navigation, DOTween animation | Depends on Core + Gameplay |
+| `ThreadRace.App` | Extenject composition, runtime drivers, command router, lifecycle bridges | Depends on all runtime assemblies + Zenject |
+| `ThreadRace.Tests` | EditMode coverage for core rules, app bridge, presentation, scene/config validation | Editor-only test assembly |
+
+Gameplay remains Unity-independent and contains no `MonoBehaviour`, uGUI, DOTween, scene reference, or Extenject dependency.
+
+---
+
+## 6. Extenject Composition
+
+### Project Installer
+
+`ThreadRaceProjectInstaller` binds long-lived services:
+
+- `IRaceTimeProvider`
+- `IUtcClock`
+- `IDeterministicRandomSourceFactory`
+- `IRaceSaveRepository`
+- `IHostLevelProgressRepository`
+- `IHostLevelProgressService`
+- `RaceAudioLibrary`
+- `IRaceAudioService`
+- `IRaceMusicService`
+- `IRaceSfxService`
+- audio volume/mute services
+- `RaceAudioDriver`
+
+### Scene Installer
+
+`ThreadRaceSceneInstaller` binds scene/event objects:
+
+- validated `RaceEventSettings`
+- `RaceSaveDataMapper`
+- `RaceEventController`
+- view interfaces for main menu, entry, HUD, placeholder level, and result
+- `RaceUiCommandRouter`
+- `LevelResultSource`
+- `ILevelResultSource`
+- `ILevelResultReporter`
+- `RaceFlowPresenter`
+- `EntryPopupPresenter`
+- `RaceHudPresenter`
+- `PlaceholderLevelPresenter`
+- `RaceResultPresenter`
+- `RaceAudioPresenter`
+- `RaceLevelResultListener`
+- `RacePresentationWarmup`
+- `RacePresentationBootstrap`
+- `RaceSimulationDriver`
+- `RaceEventTimeDriver`
+- Zenject signals
+
+All runtime composition is visible through installers. No custom DI container, service locator, or static singleton service graph was added.
+
+---
+
+## 7. Final Race Configuration
+
+`Assets/ScriptableObjects/RaceEventConfigAsset.asset`
+
+| Field | Final value |
+|---|---|
+| Save schema | `3` |
+| Save key | `ThreadRace.Save.V3` |
+| Default seed | `26062026` |
+| Demo duration | `1800` seconds |
+| Countdown interval | `1` second |
+| Finish target | `10` |
+| Rewarded positions | `3` |
+
+### Racers
+
+| Racer ID | Display name | Type | Pacing |
 |---|---|---|---|
-| Performant | `Assets/Settings/URP-Performant.asset` | `URP-Performant-Renderer` | HDR off, MSAA 1, main shadows off, additional lights off, shadow distance 50, no renderer features |
-| Balanced | `Assets/Settings/URP-Balanced.asset` | `URP-Balanced-Renderer` | HDR on, MSAA 1, main shadows on, additional lights per object 2, additional light shadows off, shadow distance 50, SSAO feature active |
-| High Fidelity | `Assets/Settings/URP-HighFidelity.asset` | `URP-HighFidelity-Renderer` | HDR on, MSAA 4, main shadows on, additional lights per object 8, additional light shadows on, shadow distance 150, SSAO feature active |
+| `player` | `You` | Player | N/A |
+| `ai_01` | `Nova` | AI | `Steady` |
+| `ai_02` | `Bolt` | AI | `Sprinter` |
+| `ai_03` | `Mina` | AI | `Closer` |
+| `ai_04` | `Rex` | AI | `Wildcard` |
 
-Additional notes:
+### Rewards
 
-- Graphics active asset: `Assets/Settings/URP-HighFidelity.asset`.
-- Android/iPhone default quality assets: `Assets/Settings/URP-Balanced.asset`.
-- Renderer GUIDs:
-  - Performant renderer: `707360a9c581a4bd7aa53bfeb1429f71`
-  - Balanced renderer: `e634585d5c4544dd297acaee93dc2beb`
-  - High Fidelity renderer: `c40be3174f62c4acf8c1216858c64956`
-- Template `Assets/Scenes/SampleScene.unity` has a Global Volume using `Assets/Settings/SampleSceneProfile.asset` with Tonemapping, Bloom, and Vignette active.
-- `ThreadRace_Demo.unity` has no Volume and no camera post-processing component.
-- No URP assets or renderer assets were modified.
+| Rank | Reward ID | Reward |
+|---:|---|---|
+| 1 | `thread_race_rank_1_coins` | `1000 Coins` |
+| 2 | `thread_race_rank_2_coins` | `500 Coins` |
+| 3 | `thread_race_rank_3_coins` | `250 Coins` |
 
-Mobile optimization recommendations for later review, not applied in Milestone 0:
-
-- Prefer Balanced or Performant quality for mobile demo verification.
-- Disable SSAO unless it visibly improves the final UI/game feel.
-- Keep HDR off unless bloom/post effects are intentionally used.
-- Keep MSAA low for UI-heavy mobile content.
-- Reduce shadow distance and avoid additional light shadows unless needed by final visuals.
+Reward tiers are explicitly authored and fail closed when missing. Gameplay reward data uses IDs and icon IDs; presentation sprites are bound separately by ID.
 
 ---
 
-## 6. Milestone board
+## 8. Final Gameplay Rules
 
-| # | Milestone | Status | User verification |
+The event lifecycle is:
+
+```text
+NotStarted -> Running -> Reward -> Completed
+```
+
+Final rules:
+
+- AI and player race progress do not start before Start.
+- Success advances the player by exactly one step.
+- Fail does not advance the player.
+- Progress is capped at the finish target.
+- Finish order is recorded only once per racer.
+- If the player finishes, the final rank is fixed immediately.
+- If all rewarded positions are filled before the player finishes, the player is DNF/no reward.
+- If the event expires before the player finishes, the player is EventExpired DNF/no reward.
+- Rewards are available only for ranks 1-3.
+- A reward is never granted unless the player reached the finish.
+- Continue/claim transitions `Reward` to `Completed`.
+- Reward claim state is persisted and guarded against double-claim.
+
+---
+
+## 9. AI Simulation and Time
+
+AI is deterministic and centralized:
+
+- One `RaceSimulationDriver : ITickable`.
+- No per-AI `Update()`.
+- Uses unscaled delta time.
+- AI only advances while the phase is `Running`.
+- Each AI plan is generated from seed, racer ID, finish target, timing envelope, and authored pacing profile.
+- Save/restore persists remaining AI step timers and deterministic random state.
+- Offline catch-up uses elapsed UTC and clamps at the event end timestamp.
+
+Device UTC is the time authority because the case study has no backend. Effective event time is monotonic through `max(currentUtc, lastObservedUtc)`, so backwards device-clock changes cannot extend the event.
+
+---
+
+## 10. Persistence
+
+Persistence is versioned behind `IRaceSaveRepository`.
+
+Saved data includes:
+
+- save schema
+- phase
+- racer progress
+- AI timers
+- finish order
+- player final outcome
+- completion reason
+- reward claim state
+- deterministic random state
+- start UTC
+- end UTC
+- last observed UTC
+
+Restore validation rejects:
+
+- wrong schema
+- null or missing collections
+- duplicate or unknown racer IDs
+- out-of-range progress
+- invalid finished/un-finished combinations
+- duplicate finish placements
+- inconsistent finish order
+- invalid AI timers
+- reward state that contradicts player outcome
+- expired outcomes before the event end timestamp
+
+---
+
+## 11. Presentation and Polish
+
+The UI is scene/prefab-authored and uses the required 2D Mobile Game UI Kit visibly.
+
+Final presentation features:
+
+- Main menu shell with Shop, Home, Leaderboard, and locked Coming Soon entries.
+- Thread Race entry button on Home.
+- Entry popup with countdown, goal, rewards, Start, and close.
+- Sky Race-inspired race HUD with reward podium, message band, five lanes, finish stripe, progress markers, rank badges, and countdown.
+- Host-game placeholder flow with Challenge, LevelWin, LevelFail, coin claim, and Back Home.
+- Result popup with rank/DNF, expired state, reward/no-reward status, and continue.
+- Button press feedback on key uGUI buttons.
+- Shared DOTween popup fade + spring-in through `PhaseViewBase`.
+- Racer row rank reorder and overtake punch feedback.
+- Central audio service with menu/gameplay music, crossfade, one-shot SFX, and preload.
+- Lilita TMP font integration for generated presentation text.
+- Safe area and portrait layout handling.
+
+Views expose intent and render models. Presenters own subscriptions, flow, and command forwarding. Gameplay does not depend on animation, UI hierarchy, audio, or scene objects.
+
+---
+
+## 12. Host Game Integration Flow
+
+The placeholder Success/Fail screen is decoupled from Thread Race state mutation.
+
+```text
+Success / Fail button
+        |
+PlaceholderLevelView event
+        |
+PlaceholderLevelPresenter
+        |
+ILevelResultReporter.Report(LevelResult)
+        |
+LevelResultSource.ResultReported
+        |
+RaceLevelResultListener
+        |
+IRaceEventCommandHandler.ReportLevelResult(LevelResult)
+        |
+RaceUiCommandRouter
+        |
+RaceEventController
+```
+
+This keeps the event integration-ready for a real host game. The host-game placeholder can be replaced without changing race rules.
+
+---
+
+## 13. Validation Summary
+
+Recorded validation during development:
+
+| Stage | Result |
+|---|---|
+| Milestone 1 EditMode | 31 Thread Race tests passed; full EditMode suite 452/452 passed |
+| Milestone 2 EditMode | 86 Thread Race tests passed; full EditMode suite 507/507 passed |
+| Milestone 3 timed-event EditMode | Full EditMode suite 580/580 passed |
+| Milestone 3 presentation/balancing EditMode | Full EditMode suite 581/581 passed; 160 Thread Race tests passed |
+| Manual Unity verification | User verified final project state as ready for submission |
+
+Primary covered areas:
+
+- Success +1
+- Fail +0
+- progress cap
+- ranking and tie policy
+- finish order once
+- top-three reward mapping
+- rank 4/5/DNF no reward
+- player must finish to receive reward
+- reward cannot be claimed twice
+- state transitions
+- deterministic AI continuation
+- save/restore round trip
+- invalid save rejection
+- timed event expiration
+- offline catch-up
+- level-result event-source bridge
+- presenter command flow
+- countdown formatting/publishing
+- safe-area/navigation behavior
+- scene/config validation
+
+---
+
+## 14. Final Milestone Board
+
+| # | Milestone | Final status | Notes |
 |---:|---|---|---|
-| 0 | Inspect and finalize project setup | COMPLETE | USER_VERIFIED |
-| 1 | Domain, config, and tests | COMPLETE | USER_VERIFIED |
-| 2 | Simulation and persistence | COMPLETE | USER_VERIFIED |
-| 3 | UI structure with required UI Kit | NOT_STARTED | NEXT |
-| 4 | Motion, audio, VFX, polish | BLOCKED | PENDING |
-| 5 | Hardening and tests | BLOCKED | PENDING |
-| 6 | README, demo, build, submission | BLOCKED | PENDING |
+| 0 | Inspect and finalize project setup | Complete | Unity version, URP, dependencies, scene, gitignore, asmdefs |
+| 1 | Domain, config, and tests | Complete | Pure gameplay rules, ranking, rewards, deterministic random, tests |
+| 2 | Simulation and persistence | Complete | Controller, save/restore, PlayerPrefs repository, central tick driver |
+| 3 | UI structure | Complete | Main menu, Entry, HUD, host gameplay, result flow, countdown |
+| 4 | Polish | Complete | DOTween motion, button feedback, overtake feedback, audio, warmup |
+| 5 | Hardening | Complete | Save validation, reward guards, config validation, architecture split |
+| 6 | Submission | Complete | README, AI usage documentation, final tracker cleanup |
 
 ---
 
-## 7. Milestone 0 checklist
+## 15. File/Feature Highlights
 
-### Project inspection
-
-- [x] Read `AGENTS.md`, `PLAN.md`, and `PROGRESS.md`
-- [x] Inspect Git status and current diff/state
-- [x] Confirm project root path
-- [x] Confirm Unity executable path for `2022.3.62f2`
-- [x] Confirm Unity-generated folders currently exist
-- [x] Confirm URP package version
-- [x] Record active URP pipeline asset path
-- [x] Record active renderer asset paths
-- [x] Record renderer feature status and mobile suitability risks
-- [x] Apply portrait project setting through Unity PlayerSettings API
-- [x] Confirm scene Canvas reference resolution by YAML inspection
-- [x] Confirm safe-area/layer approach by YAML inspection
-- [x] Record manual Unity verification
-
-### Dependencies
-
-- [x] Extenject installed and recorded
-- [x] DOTween imported/setup recorded
-- [x] Required UI Kit imported and recorded
-- [x] TextMeshPro Essentials imported
-- [x] Vendor folders left untouched
-- [x] Extenject OptionalExtras not removed
-
-### Architecture
-
-- [x] Target folders created
-- [x] `ThreadRace.Core.asmdef` created
-- [x] `ThreadRace.Gameplay.asmdef` created
-- [x] Gameplay `noEngineReferences: true`
-- [x] `ThreadRace.Infrastructure.asmdef` created
-- [x] `ThreadRace.Presentation.asmdef` created
-- [x] `ThreadRace.App.asmdef` created
-- [x] `ThreadRace.Tests.asmdef` created
-- [x] Assembly references verified
-- [x] No circular references
-
-### Extenject
-
-- [x] `ThreadRaceProjectInstaller` created
-- [x] `ThreadRaceSceneInstaller` created
-- [x] SceneContext configured through Unity batch-mode Editor API
-- [x] SceneContext references `ThreadRaceSceneInstaller`
-- [x] ProjectContext intentionally deferred
-- [x] No custom DI code exists
-- [x] No service locator exists
-- [x] No gameplay bindings added
-
-### Scene and settings
-
-- [x] `ThreadRace_Demo.unity` created
-- [x] Intended root hierarchy created
-- [x] Canvas Scaler configured
-- [x] SafeArea and UI layer placeholders created
-- [x] Build Settings configured with ThreadRace scene first enabled
-- [x] SampleScene removed from Build Settings without deleting the asset
-- [x] No vendor demo scenes touched
-- [x] User manually verified scene hierarchy, SceneContext, Canvas Scaler, Build Settings, portrait settings, no visible missing scripts, and no Extenject blocking errors
-
-### Git
-
-- [x] Git repo confirmed
-- [x] Unity `.gitignore` confirmed
-- [x] Generated folders ignored
-- [x] Initial commit created: `513337d2a30b399e59cdd19f173a1e505fd1c03e`
-- [x] Working tree was clean after the initial commit
+| Area | Representative files |
+|---|---|
+| Composition | `Assets/Scripts/App/Installers/ThreadRaceProjectInstaller.cs`, `Assets/Scripts/App/Installers/ThreadRaceSceneInstaller.cs` |
+| Central tick drivers | `RaceSimulationDriver.cs`, `RaceEventTimeDriver.cs`, `RaceAudioDriver.cs` |
+| Gameplay rules | `RaceSession.cs`, `RaceEventController.cs`, `RaceOutcomeResolver.cs`, `RaceFinishTracker.cs`, `RaceRankingService.cs` |
+| AI planning | `AiRacePlan.cs`, `AiRacePlanGenerator.cs`, `AiPacingProfile.cs`, `AiPacingStyle.cs` |
+| Save/restore | `RaceSaveDataMapper.cs`, `RaceSaveData.cs`, `PlayerPrefsRaceSaveRepository.cs` |
+| Config | `RaceEventConfigAsset.cs`, `RaceEventConfigAsset.asset`, `RaceEventConfigAssetEditor.cs` |
+| Presentation flow | `RaceFlowPresenter.cs`, `EntryPopupPresenter.cs`, `RaceHudPresenter.cs`, `PlaceholderLevelPresenter.cs`, `RaceResultPresenter.cs` |
+| Views | `MainMenuView.cs`, `EntryPopupView.cs`, `RaceHudView.cs`, `PlaceholderLevelView.cs`, `RaceResultView.cs`, `RacerHudRowView.cs` |
+| Animation/polish | `PhaseViewBase.cs`, `ButtonPressFeedback.cs`, `LockedNavbarTooltip.cs`, `PlayButtonAttentionAnimator.cs` |
+| Audio | `RaceAudioService.cs`, `RaceAudioLibraryAsset.cs`, `RaceAudioPresenter.cs`, `ThreadRaceAudioLibrary.asset` |
+| Tests | `Assets/Scripts/Tests/EditMode` |
+| Submission docs | `README.md`, `PLAN.md`, `PROGRESS.md` |
 
 ---
 
-## 8. Milestone 1 checklist
+## 16. AI Workflow Log
 
-### Runtime configuration
-
-- [x] Immutable plain C# runtime configuration model added
-- [x] Exactly five racers validated
-- [x] Exactly one player and four AI racers validated
-- [x] Duplicate/empty racer IDs rejected
-- [x] Empty display names rejected
-- [x] Finish target and rewarded positions validated
-- [x] AI delay ranges validated
-- [x] Stable initial ordering used for deterministic ties
-- [x] No ScriptableObject runtime config adapter added in this milestone
-
-### Domain and application
-
-- [x] `RacerId`, `RacerType`, `RacePhase`, and `LevelResult` added
-- [x] Internal mutable racer state kept private to the session
-- [x] Immutable racer, ranking, finisher, outcome, and race snapshots added
-- [x] Race starts in `NotStarted`
-- [x] Start transitions to `Running`
-- [x] Invalid state transitions rejected
-- [x] Success advances the player by exactly one step
-- [x] Fail does not advance the player
-- [x] Progress is capped at the configured finish target
-- [x] No mutation is allowed after completion
-
-### Deterministic AI simulation
-
-- [x] Core deterministic random abstraction added
-- [x] Seeded infrastructure implementation added
-- [x] No `UnityEngine.Random` used
-- [x] Four AI racers use independent countdown timers
-- [x] Large delta time can trigger multiple deterministic AI steps
-- [x] Finished AI racers stop progressing
-- [x] AI simulation stops after race completion
-- [x] Invalid or non-positive generated AI delays are guarded
-
-### Ranking and outcome
-
-- [x] Finished racers rank by recorded finish placement
-- [x] Unfinished racers rank by progress descending
-- [x] Equal unfinished progress uses stable initial order
-- [x] Ranking recalculates after progress mutations
-- [x] Finish order is recorded once
-- [x] Player finish outcome records real placement
-- [x] Reward eligibility requires player finish and rewarded placement
-- [x] If reward positions are filled before the player finishes, the player outcome is DNF with no reward
-
-### Tests and validation
-
-- [x] 31 ThreadRace EditMode tests added
-- [x] Full EditMode suite run in Unity batch mode
-- [x] 452 total EditMode tests passed, 0 failed
-- [x] ThreadRace intended tests discovered: 31
-- [x] User manually verified Unity import/compile completed with no blocking red console errors
-- [x] User manually verified all 31 ThreadRace EditMode tests passed
-- [x] No C# compiler errors found in final validation log
-- [x] No missing assembly reference errors found in final validation log
-- [x] `ThreadRace.Gameplay` remains `noEngineReferences: true`
-- [x] `ThreadRace.Gameplay` still references only `ThreadRace.Core`
-- [x] No UI, scene wiring, persistence, audio, VFX, or polish implemented
-
----
-
-## 9. Milestone 2 checklist
-
-### Runtime configuration and persistence
-
-- [x] `RaceEventSettings` added as an immutable plain C# runtime settings model
-- [x] Save schema version, save key, and explicit default seed are validated
-- [x] `RaceEventConfigAsset` ScriptableObject adapter added under Infrastructure
-- [x] Default `RaceEventConfigAsset.asset` created through Unity Editor automation
-- [x] Gameplay save model added without Unity object references
-- [x] `IRaceSaveRepository` added under Gameplay contracts
-- [x] `PlayerPrefsRaceSaveRepository` added under Infrastructure using JSON DTOs
-- [x] Empty, malformed, or invalid persisted JSON returns controlled load failure
-- [x] `RaceSaveDataMapper` captures save data and performs strict restore validation
-- [x] Unsupported version, racer mismatches, duplicate IDs/placements, impossible progress, invalid timers, contradictory outcomes, and invalid random state are rejected
-
-### Deterministic continuation
-
-- [x] `DeterministicRandomState` added
-- [x] `IDeterministicRandomSourceFactory` added
-- [x] `SeededRandomSource` changed to explicit-state LCG; no `System.Random` internals used
-- [x] Save/restore preserves AI countdowns, finish order, player outcome, and random state
-- [x] Restored and uninterrupted sessions remain identical under equal future deltas and player commands
-
-### Application and composition
-
-- [x] `RaceEventController` added with constructor injection
-- [x] Controller loads valid saves, surfaces invalid saves, and does not silently overwrite corrupt data
-- [x] Controller saves after start, player progress, AI progress, racer finish, and completion
-- [x] Player Fail avoids unnecessary save writes
-- [x] Reset clears only the configured Thread Race save key through the repository
-- [x] `ILevelResultHandler` added for future UI/host-game integration
-- [x] `IRaceTimeProvider` and Unity unscaled-time adapter added
-- [x] Single `RaceSimulationDriver : ITickable` added; no per-AI `Update` loops, coroutines, threads, or async tasks
-- [x] Project installer binds time provider, random factory, and save repository
-- [x] Scene installer binds runtime settings, mapper, controller, level-result handler, and simulation driver
-- [x] `ProjectContext.prefab` created under `Assets/Resources`
-- [x] `ThreadRace_Demo.unity` has the config asset assigned to `ThreadRaceSceneInstaller`
-- [x] Temporary Milestone 2 Editor automation removed after successful setup
-
-### Validation
-
-- [x] Unity batch-mode setup completed
-- [x] Unity batch-mode EditMode tests completed
-- [x] 86 ThreadRace EditMode tests discovered and passed
-- [x] Full EditMode suite passed 507/507
-- [x] User manually verified Unity import/compile completed with no blocking red console errors
-- [x] User manually verified `ThreadRace_Demo.unity` opens successfully
-- [x] User manually verified `ThreadRaceSceneInstaller` references `RaceEventConfigAsset.asset`
-- [x] User manually verified `ProjectContext.prefab` contains `Zenject.ProjectContext` and `ThreadRaceProjectInstaller`
-- [x] User manually verified Extenject composition has no blocking errors
-- [x] User manually verified no Missing Script components were observed
-- [x] User manually verified all 86 ThreadRace EditMode tests passed
-- [x] User manually verified the full EditMode suite passed 507/507
-- [x] Final test log scanned clean for C# compiler errors and missing assembly references
-- [x] `ThreadRace.Gameplay` remains `noEngineReferences: true`
-- [x] `ThreadRace.Gameplay` still references only `ThreadRace.Core`
-- [x] No Milestone 3 UI, presentation screens, UI Kit screen design, audio, VFX, or polish implemented
-
----
-
-## 10. Unity batch-mode log
-
-Unity batch mode was authorized by the user for remaining Milestone 0 scene/project setup and for Milestone 2 setup/import/EditMode validation.
-
-Final durable results:
-
-- Scene setup was created through Unity Editor APIs, not by manual scene YAML authoring.
-- Temporary Editor automation was created under `Assets/ThreadRace/Editor/ThreadRaceMilestone0SceneSetup.cs`.
-- Temporary Editor automation was removed after use, along with its `.meta` and empty `Editor` folder.
-- Final active setup log: `Logs/ThreadRaceMilestone0SceneSetup.log` (ignored by Git).
-- Historical batch logs from intermediate attempts are also under ignored `Logs/`.
-
-Notable batch notes:
-
-- Initial automation attempt used `PlayerSettings.useOSAutorotation`, which is not available in Unity `2022.3.62f2`; the API call was removed and portrait settings were enforced through available PlayerSettings fields.
-- Unity's `EditorBuildSettingsScene` API wrote a zero GUID for the new scene entry; `ProjectSettings/EditorBuildSettings.asset` was narrowly corrected to match `ThreadRace_Demo.unity.meta`.
-- Final batch log contains Unity licensing/shutdown warnings, but no `error CS`, no "Scripts have compiler errors", and no thrown setup exception in the final setup pass.
-- Scene YAML inspection found no `m_Script: {fileID: 0}` missing-script references.
-
-Milestone 2 durable results:
-
-- Temporary Editor automation was created under `Assets/ThreadRace/Editor/ThreadRaceMilestone2Setup.cs`.
-- The first setup pass after adding the Editor script only imported/reloaded the script; the second pass executed the method successfully.
-- `Assets/ThreadRace/ScriptableObjects/RaceEventConfigAsset.asset` was created through Unity Editor APIs.
-- `Assets/Resources/ProjectContext.prefab` was created through Unity Editor APIs.
-- `Assets/ThreadRace/Scenes/ThreadRace_Demo.unity` was updated through Unity Editor APIs only to assign the config asset to `ThreadRaceSceneInstaller`.
-- Temporary Milestone 2 Editor automation was removed after successful setup, along with its `.meta` and empty `Editor` folder.
-- Setup log: `Logs/Milestone2-Setup.log` (ignored by Git).
-- Compile log: `Logs/Milestone2-Compile.log` (ignored by Git).
-- EditMode log: `Logs/Milestone2-EditMode.log` (ignored by Git).
-- EditMode result XML: `Logs/Milestone2-EditModeResults.xml` (ignored by Git).
-- Final EditMode XML reports 507 total, 507 passed, 0 failed; 86 ThreadRace tests discovered and passed.
-- Final validation log scanned clean for `error CS`, "Scripts have compiler errors", "Compilation failed", missing assembly references, and assembly reference errors.
-
-No Play Mode or build was run in Milestone 2.
-
----
-
-## 11. File change log
-
-| Milestone | Created | Modified | Deleted |
-|---|---|---|---|
-| Milestone 0 | `.gitignore`; `Assets/ThreadRace` folder skeleton and `.meta` files; six `ThreadRace.*.asmdef` files; `ThreadRaceProjectInstaller.cs`; `ThreadRaceSceneInstaller.cs`; `Assets/ThreadRace/Scenes/ThreadRace_Demo.unity`; `Assets/ThreadRace/Scenes/ThreadRace_Demo.unity.meta` | `ProjectSettings/ProjectSettings.asset`; `ProjectSettings/EditorBuildSettings.asset`; `PROGRESS.md` | none |
-| Milestone 0 temporary automation | `Assets/ThreadRace/Editor/ThreadRaceMilestone0SceneSetup.cs` and `.meta`; `Assets/ThreadRace/Editor.meta`; ignored batch logs under `Logs/` | none retained | Temporary Editor automation files removed after successful setup |
-| Milestone 1 | `IDeterministicRandomSource.cs`; `SeededRandomSource.cs`; `AiStepTiming.cs`; `RaceConfiguration.cs`; `RacerDefinition.cs`; `RaceSession.cs`; `RacerId.cs`; `RacerType.cs`; `RacePhase.cs`; `LevelResult.cs`; `RacerRuntimeState.cs`; `RacerSnapshot.cs`; `RaceRankingEntry.cs`; `FinishedRacerResult.cs`; `PlayerRaceOutcome.cs`; `RaceSnapshot.cs`; `RaceDomainTests.cs`; matching Unity `.meta` files for each new source file | `Assets/ThreadRace/Tests/ThreadRace.Tests.asmdef`; `PROGRESS.md` | none |
-| Milestone 2 | Runtime settings, save model, repository contract, save mapper, controller, time/random factories, PlayerPrefs repository, config asset adapter, simulation driver, default config asset, ProjectContext prefab, and expanded EditMode tests with matching `.meta` files | Existing installers, random source abstraction/implementation, `RaceSession`, `RacerRuntimeState`, scene installer reference, test asmdef, Milestone 1 test fake, `PROGRESS.md` | Temporary `Assets/ThreadRace/Editor/ThreadRaceMilestone2Setup.cs`, `.meta`, and `Assets/ThreadRace/Editor.meta` removed after setup |
-
-Planning documents `AGENTS.md` and `PLAN.md` were not modified in Milestone 1.
-
-Milestone 1 created file paths:
-
-- `Assets/ThreadRace/Runtime/Core/Random/IDeterministicRandomSource.cs`
-- `Assets/ThreadRace/Runtime/Core/Random/IDeterministicRandomSource.cs.meta`
-- `Assets/ThreadRace/Runtime/Infrastructure/Randomness/SeededRandomSource.cs`
-- `Assets/ThreadRace/Runtime/Infrastructure/Randomness/SeededRandomSource.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Config/AiStepTiming.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Config/AiStepTiming.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Config/RaceConfiguration.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Config/RaceConfiguration.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Config/RacerDefinition.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Config/RacerDefinition.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Application/RaceSession.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Application/RaceSession.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/FinishedRacerResult.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/FinishedRacerResult.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/LevelResult.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/LevelResult.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/PlayerRaceOutcome.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/PlayerRaceOutcome.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RacePhase.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RacePhase.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RaceRankingEntry.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RaceRankingEntry.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RacerId.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RacerId.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RacerRuntimeState.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RacerRuntimeState.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RacerSnapshot.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RacerSnapshot.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RacerType.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RacerType.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RaceSnapshot.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RaceSnapshot.cs.meta`
-- `Assets/ThreadRace/Tests/EditMode/RaceDomainTests.cs`
-- `Assets/ThreadRace/Tests/EditMode/RaceDomainTests.cs.meta`
-
-Milestone 1 modified file paths:
-
-- `Assets/ThreadRace/Tests/ThreadRace.Tests.asmdef`
-- `PROGRESS.md`
-
-Milestone 2 created file paths:
-
-- `Assets/Resources/ProjectContext.prefab`
-- `Assets/Resources/ProjectContext.prefab.meta`
-- `Assets/ThreadRace/Runtime/App/RaceSimulationDriver.cs`
-- `Assets/ThreadRace/Runtime/App/RaceSimulationDriver.cs.meta`
-- `Assets/ThreadRace/Runtime/Core/Random/DeterministicRandomState.cs`
-- `Assets/ThreadRace/Runtime/Core/Random/DeterministicRandomState.cs.meta`
-- `Assets/ThreadRace/Runtime/Core/Random/IDeterministicRandomSourceFactory.cs`
-- `Assets/ThreadRace/Runtime/Core/Random/IDeterministicRandomSourceFactory.cs.meta`
-- `Assets/ThreadRace/Runtime/Core/Time/IRaceTimeProvider.cs`
-- `Assets/ThreadRace/Runtime/Core/Time/IRaceTimeProvider.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Application/RaceControllerInitializationResult.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Application/RaceControllerInitializationResult.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Application/RaceControllerInitializationStatus.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Application/RaceControllerInitializationStatus.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Application/RaceEventController.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Application/RaceEventController.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Application/RaceSaveDataMapper.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Application/RaceSaveDataMapper.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Config/RaceEventSettings.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Config/RaceEventSettings.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Contracts.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Contracts/ILevelResultHandler.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Contracts/ILevelResultHandler.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Contracts/IRaceSaveRepository.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Contracts/IRaceSaveRepository.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence/RaceSaveData.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence/RaceSaveData.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence/RaceSaveLoadResult.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence/RaceSaveLoadResult.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence/RaceSaveLoadStatus.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence/RaceSaveLoadStatus.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence/RaceSavePlayerOutcomeData.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence/RaceSavePlayerOutcomeData.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence/RaceSaveRacerData.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence/RaceSaveRacerData.cs.meta`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence/RaceSaveValidationException.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Persistence/RaceSaveValidationException.cs.meta`
-- `Assets/ThreadRace/Runtime/Infrastructure/Config.meta`
-- `Assets/ThreadRace/Runtime/Infrastructure/Config/RaceEventConfigAsset.cs`
-- `Assets/ThreadRace/Runtime/Infrastructure/Config/RaceEventConfigAsset.cs.meta`
-- `Assets/ThreadRace/Runtime/Infrastructure/Persistence/PlayerPrefsRaceSaveRepository.cs`
-- `Assets/ThreadRace/Runtime/Infrastructure/Persistence/PlayerPrefsRaceSaveRepository.cs.meta`
-- `Assets/ThreadRace/Runtime/Infrastructure/Randomness/SeededRandomSourceFactory.cs`
-- `Assets/ThreadRace/Runtime/Infrastructure/Randomness/SeededRandomSourceFactory.cs.meta`
-- `Assets/ThreadRace/Runtime/Infrastructure/Time/UnityRaceTimeProvider.cs`
-- `Assets/ThreadRace/Runtime/Infrastructure/Time/UnityRaceTimeProvider.cs.meta`
-- `Assets/ThreadRace/ScriptableObjects/RaceEventConfigAsset.asset`
-- `Assets/ThreadRace/ScriptableObjects/RaceEventConfigAsset.asset.meta`
-- `Assets/ThreadRace/Tests/EditMode/PlayerPrefsRaceSaveRepositoryTests.cs`
-- `Assets/ThreadRace/Tests/EditMode/PlayerPrefsRaceSaveRepositoryTests.cs.meta`
-- `Assets/ThreadRace/Tests/EditMode/RaceDeterministicContinuationTests.cs`
-- `Assets/ThreadRace/Tests/EditMode/RaceDeterministicContinuationTests.cs.meta`
-- `Assets/ThreadRace/Tests/EditMode/RaceEventConfigAssetTests.cs`
-- `Assets/ThreadRace/Tests/EditMode/RaceEventConfigAssetTests.cs.meta`
-- `Assets/ThreadRace/Tests/EditMode/RaceEventControllerTests.cs`
-- `Assets/ThreadRace/Tests/EditMode/RaceEventControllerTests.cs.meta`
-- `Assets/ThreadRace/Tests/EditMode/RaceSaveDataMapperTests.cs`
-- `Assets/ThreadRace/Tests/EditMode/RaceSaveDataMapperTests.cs.meta`
-- `Assets/ThreadRace/Tests/EditMode/RaceSimulationDriverTests.cs`
-- `Assets/ThreadRace/Tests/EditMode/RaceSimulationDriverTests.cs.meta`
-- `Assets/ThreadRace/Tests/EditMode/RaceTestSupport.cs`
-- `Assets/ThreadRace/Tests/EditMode/RaceTestSupport.cs.meta`
-
-Milestone 2 modified file paths:
-
-- `Assets/ThreadRace/Runtime/App/Installers/ThreadRaceProjectInstaller.cs`
-- `Assets/ThreadRace/Runtime/App/Installers/ThreadRaceSceneInstaller.cs`
-- `Assets/ThreadRace/Runtime/Core/Random/IDeterministicRandomSource.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Application/RaceSession.cs`
-- `Assets/ThreadRace/Runtime/Gameplay/Domain/RacerRuntimeState.cs`
-- `Assets/ThreadRace/Runtime/Infrastructure/Randomness/SeededRandomSource.cs`
-- `Assets/ThreadRace/Scenes/ThreadRace_Demo.unity`
-- `Assets/ThreadRace/Tests/EditMode/RaceDomainTests.cs`
-- `Assets/ThreadRace/Tests/ThreadRace.Tests.asmdef`
-- `PROGRESS.md`
-
-Planning documents `AGENTS.md` and `PLAN.md` were not modified in Milestone 2.
-
----
-
-## 12. Test log
-
-| Date | Milestone | Unity version | Test | Result | Notes |
+| Date | Tool | Task | Output used | Correction / override | Verification |
 |---|---|---|---|---|---|
-| 2026-06-30 | Milestone 0 | 2022.3.62f2 | Manual Unity import/compile before scene setup | USER_REPORTED_PASS | User reported Unity import/compile completed with no blocking red compile errors before this pass |
-| 2026-06-30 | Milestone 0 | 2022.3.62f2 | Unity batch-mode scene setup | COMPLETED | Batch-mode Editor automation created/saved scene and settings; no Play Mode/tests/build run |
-| 2026-06-30 | Milestone 0 | 2022.3.62f2 | Manual Unity final verification | USER_VERIFIED_PASS | User verified compile/import, scene open, hierarchy, SceneContext installer registration, Canvas Scaler, Build Settings, portrait settings, no visible Missing Script components, and no Extenject blocking errors |
-| 2026-06-30 | Milestone 1 | 2022.3.62f2 | Unity batch-mode EditMode tests | PASS | Final command used `-batchmode -projectPath C:\Users\user\Desktop\VPCaseStudy -runTests -testPlatform editmode -testResults Logs/Milestone1-EditModeResults.xml -logFile Logs/Milestone1-EditMode-NoQuit.log`; exit code `0`; result XML reports 452 total, 452 passed, 0 failed; 31 ThreadRace tests discovered and passed |
-| 2026-06-30 | Milestone 1 | 2022.3.62f2 | Manual Unity final verification | USER_VERIFIED_PASS | User verified import/compile completed, Console had no blocking red compile errors, ThreadRace EditMode suite was discovered, and all 31 ThreadRace EditMode tests passed |
-| 2026-06-30 | Milestone 2 | 2022.3.62f2 | Unity batch-mode setup/import | PASS | `Logs/Milestone2-Setup.log`; setup created `RaceEventConfigAsset.asset`, `ProjectContext.prefab`, and scene installer config reference through Unity Editor APIs; no Play Mode/build run |
-| 2026-06-30 | Milestone 2 | 2022.3.62f2 | Unity batch-mode EditMode tests | PASS | Final command used `-batchmode -projectPath C:\Users\user\Desktop\VPCaseStudy -runTests -testPlatform editmode -testResults Logs/Milestone2-EditModeResults.xml -logFile Logs/Milestone2-EditMode.log`; exit code `0`; result XML reports 507 total, 507 passed, 0 failed; 86 ThreadRace tests discovered and passed |
-| 2026-06-30 | Milestone 2 | 2022.3.62f2 | Manual Unity final verification | USER_VERIFIED_PASS | User verified import/compile completed, Console had no blocking red errors, scene opened successfully, `RaceEventConfigAsset` assignment was present, ProjectContext contained `Zenject.ProjectContext` and `ThreadRaceProjectInstaller`, Extenject had no blocking errors, no Missing Script components were observed, all 86 ThreadRace tests passed, and the full EditMode suite passed 507/507 |
+| 2026-06-30 | ChatGPT | Architecture planning | Initial layered architecture and milestone plan | Rejected custom/manual DI; standardized on Extenject | Compared against case brief and project rules |
+| 2026-06-30 | Codex | Project setup | Gitignore, folder plan, asmdefs, installers, portrait setup | Deferred fragile scene YAML edits until Unity-authored workflow | File inspection, asmdef graph review, Git status |
+| 2026-06-30 | Codex | Domain foundation | Runtime config, deterministic random, race state, ranking, rewards, tests | Corrected test asmdef setup and runner shutdown workflow | Unity EditMode XML, dependency grep, source review |
+| 2026-06-30 | Codex | Simulation and persistence | Save model, strict validation, PlayerPrefs repository, controller, central driver | Replaced `System.Random` continuation with explicit deterministic state | EditMode XML, scene/prefab inspection, dependency grep |
+| 2026-06-30 | Codex | Presentation flow | View/presenter layer, UI prefabs, command router, signals | Kept UI scene/prefab-authored instead of runtime-generated | Unity setup logs, tests, scene validation |
+| 2026-07-01 | Codex | Timed-event correction | UTC timing, offline catch-up, expiration DNF, countdown | Corrected stale V1/no-timing helpers; documented device-clock limitation | Timed-event EditMode pass, save validation tests |
+| 2026-07-01 | Codex | Main menu shell | Swipe navigation, navbar, Home live-event entry | Removed template-specific DI/SFX/ExecuteAlways dependencies | Static code/test inspection, scene validation |
+| 2026-07-01 | Codex | Thread Fever/HoleCraze visual adaptation | Main-menu sprites, tooltip bubble, font assets | Copied only narrow project-owned visual assets, not foreign project code/services | Asset/GUID inspection, scene validation |
+| 2026-07-03 | Codex | Audio | Central audio service, cue library, presenter | Rejected direct HoleCraze `SoundManager` port; implemented project-owned Extenject-visible service | Static inspection, presenter tests |
+| 2026-07-03 | Codex | AI pacing | Deterministic race plans and data-authored AI profiles | Replaced min/max-only AI behavior with seed+racerId profile plans | Deterministic tests, source review |
+| 2026-07-03 | Codex | Architecture hardening | Split ranking, finish, outcome, snapshot, save snapshot helpers | Reduced `RaceSession` scope without changing public behavior | Gameplay dependency grep, compile/static checks |
+| 2026-07-03 | Codex | Level-result decoupling | Event-source/reporter bridge | Removed unused direct `ILevelResultHandler` path | Static grep, command/presenter tests |
+| 2026-07-03 | Codex | README | External-facing submission README | Kept claims tied to code/assets/logs; documented correction and verification | Source inspection, markdown review |
 
-Milestone 1 validation notes:
-
-- Explicit `-quit` runs exited with code `0` but did not emit a result XML in this environment.
-- The successful final run let the Unity Test Runner control shutdown, produced `Logs/Milestone1-EditModeResults.xml`, and exited with code `0`.
-- Final validation log scanned clean for `error CS`, "Scripts have compiler errors", "Compilation failed", missing assembly references, and assembly reference errors.
-
-Milestone 2 validation notes:
-
-- The first test command after deleting the temporary Editor setup script completed import/reload but did not emit XML; the subsequent runner-controlled command emitted `Logs/Milestone2-EditModeResults.xml`.
-- Final setup and test logs contain Unity licensing/performance stack entries and the known empty `ThreadRace.Presentation` asmdef warning, but no C# compiler errors, missing assembly references, or failed ThreadRace tests.
-- No Play Mode tests, interactive Play Mode, player build, package updates, URP changes, or vendor modifications were performed.
-
-Never replace failed entries. Add a new row after fixes.
+The README contains the required AI section: tools used, where AI helped, one concrete correction/override, and how the output was verified.
 
 ---
 
-## 13. AI workflow log
+## 17. Decision Log
 
-| Date | Tool | Task | Output used | Developer correction/override | Verification |
-|---|---|---|---|---|---|
-| 2026-06-30 | ChatGPT | Analyze brief and prepare architecture guidance | Initial planning documents | Rejected custom DI/manual fallback; standardized on installed Extenject | Compared with original brief and project rules |
-| 2026-06-30 | Codex | Milestone 0 repository and architecture setup | Git initialization, Unity `.gitignore`, folder skeleton, asmdefs, minimal Extenject installers, portrait setting | Deferred scene/context YAML creation until Unity-authored workflow was approved | Static file inspection, asmdef graph review, `git status --ignored` |
-| 2026-06-30 | Codex | Milestone 0 scene setup | Unity batch-mode Editor automation for scene, SceneContext, Canvas, Build Settings, and portrait settings | Corrected unavailable `PlayerSettings.useOSAutorotation` API; kept ProjectContext deferred; corrected Build Settings GUID to match scene meta | Batch logs, scene YAML inspection, ProjectSettings inspection, Git status |
-| 2026-06-30 | Codex | Milestone 1 gameplay/domain foundation | Runtime config, deterministic random source, race session, AI timers, ranking, finish outcome, EditMode tests | Corrected test asmdef setup by adding `TestAssemblies`, removing duplicate explicit TestRunner references, and using runner-controlled batch shutdown when explicit `-quit` produced no XML | Unity batch-mode EditMode XML, final log scan, asmdef inspection, dependency grep |
-| 2026-06-30 | Codex | Milestone 2 simulation and persistence foundation | ScriptableObject config adapter, save model, strict restore validation, PlayerPrefs repository, application controller, central `ITickable` driver, Extenject composition, EditMode tests | Replaced `System.Random`-based continuation with explicit-state LCG; corrected namespace collision in `UnityRaceTimeProvider` by using `UnityEngine.Time.unscaledDeltaTime`; kept setup YAML changes Unity-authored | Unity batch setup log, EditMode XML, scene/prefab YAML inspection, dependency grep, Git status |
-
-The final README must contain at least one concrete correction example.
-
----
-
-## 14. Decision log
-
-| Date | Decision | Reason | Owner |
-|---|---|---|---|
-| 2026-06-30 | Extenject is mandatory | Installed and aligned with project rules | Serhat |
-| 2026-06-30 | URP is the approved rendering pipeline | Project intentionally created from Universal 3D template | Serhat |
-| 2026-06-30 | No custom DI container | Avoid duplicate frameworks and hidden composition | Serhat / architecture review |
-| 2026-06-30 | Gameplay assembly is Unity-independent | Strong compile-time boundary and testability | Serhat / architecture review |
-| 2026-06-30 | Scene/prefab authored UI | Required UI Kit and polish priority | Serhat / architecture review |
-| 2026-06-30 | Do not manually author complex scene/prefab YAML | SceneContext, Canvas, EventSystem, and installer references should be Unity-authored | Codex / Serhat instruction |
-| 2026-06-30 | Do not remove Extenject OptionalExtras during Milestone 0 | No confirmed compile error and user approval required | Codex / Serhat instruction |
-| 2026-06-30 | Defer ProjectContext | No global project services exist yet; empty project installer does not justify creating ProjectContext now | Codex |
-| 2026-06-30 | Do not add DOTween reference to Presentation yet | No presentation scripts require DOTween in Milestone 0 | Codex |
-| 2026-06-30 | Keep SampleScene asset, remove it from Build Settings | User required ThreadRace scene first enabled without deleting default scene file | Codex |
-| 2026-06-30 | Runtime config stays plain C# in Milestone 1 | ScriptableObject-to-runtime adapter is explicitly deferred to a later milestone | Codex / latest instruction |
-| 2026-06-30 | Race outcome resolves to player DNF when reward positions fill before player finish | Latest Milestone 1 instruction requires completion when the player's rewarded outcome is irreversible | Codex / latest instruction |
-| 2026-06-30 | Test assembly references Infrastructure | Milestone 1 tests must verify the seeded random infrastructure implementation | Codex |
-| 2026-06-30 | Deterministic random continuation uses explicit-state LCG | Save/restore must not serialize `System.Random` internals or depend on reflection | Codex |
-| 2026-06-30 | `RaceEventConfigAsset` lives in Infrastructure | ScriptableObject conversion is Unity-specific while output remains immutable Gameplay settings | Codex |
-| 2026-06-30 | Test assembly references App and Zenject | Milestone 2 requires EditMode coverage for App-level `RaceSimulationDriver : ITickable` | Codex |
-| 2026-06-30 | ProjectContext is created in Milestone 2 | Long-lived infrastructure services now exist and justify `ThreadRaceProjectInstaller` registration | Codex |
+| Date | Decision | Reason |
+|---|---|---|
+| 2026-06-30 | Use URP | Project was created from Universal 3D template; URP remains locked |
+| 2026-06-30 | Use Extenject | Required dependency and clear composition boundary |
+| 2026-06-30 | No custom DI container | Avoid hidden dependency graph and duplicate frameworks |
+| 2026-06-30 | Gameplay is Unity-independent | Better testability and clean architecture boundary |
+| 2026-06-30 | Scene/prefab-authored UI | Required UI Kit and polished mobile presentation |
+| 2026-06-30 | One central AI driver | Avoid per-AI `Update()` and simplify deterministic simulation |
+| 2026-06-30 | Versioned save data | Safe restore and schema evolution |
+| 2026-06-30 | Device UTC time | No backend exists in the case study |
+| 2026-07-01 | Event countdown visible before joining | Better live-ops UX; Start accepts current event window |
+| 2026-07-01 | Success/Fail belongs to host flow | Thread Race should integrate with a host game through an abstraction |
+| 2026-07-01 | Home Play remains independent | Completed event must not block normal host gameplay |
+| 2026-07-01 | Shop/Leaderboard are presentation-only | Improve host shell without adding economy/backend scope |
+| 2026-07-02 | Use Lilita TMP font | Improve casual-game visual consistency |
+| 2026-07-03 | Project-owned audio service | Avoid importing unrelated HoleCraze services/assumptions |
+| 2026-07-03 | Dynamic AI race plans | Fixed min/max intervals felt primitive and predictable |
+| 2026-07-03 | AI tuning is authored data | Avoid hidden gameplay presets in code |
+| 2026-07-03 | Reward tiers fail closed | Missing reward config should not silently generate fallback rewards |
+| 2026-07-03 | Explicit `Reward` phase | Separate result display/claim from completed acknowledgement |
+| 2026-07-03 | Host level progress service | Keep presenter focused on UI and move persistence behind service |
+| 2026-07-03 | README is final submission document | Company review asks for structure, architecture decisions, AI usage, verification, and one-more-day improvements |
+| 2026-07-03 | PROGRESS is final tracker | Clean repository presentation matters for case-study review |
 
 ---
 
-## 15. Remaining non-blocking risks
+## 18. Final Submission Notes
 
-1. `ThreadRace.Presentation` is still an empty asmdef and Unity may log a nonblocking warning until presentation scripts are added.
-2. Explicit `-quit` Unity test runs exit without result XML in this environment; the validated run used Unity Test Runner controlled shutdown and produced XML.
-3. Original case-study brief is not copied into the repository by instruction.
-4. UI, presentation screen implementation, audio, VFX, and polish work are intentionally deferred to later milestones.
-5. Active editor quality uses `URP-HighFidelity.asset`; mobile demo should review quality selection because SSAO/HDR/MSAA/shadows are heavier than needed for a UI-first event.
-6. Android/iPhone default quality uses `URP-Balanced.asset`; later polish should verify whether SSAO and HDR are worth the mobile cost.
-
-Milestone 2 is complete and user verified.
+- `README.md` is the external-facing document for reviewers.
+- `PROGRESS.md` is now a clean final tracker, not a raw work journal.
+- `PLAN.md` remains the implementation plan and decision context.
+- The project intentionally keeps host gameplay, shop, leaderboard, analytics, backend time, and economy as scoped placeholders or future work.
+- Demo video/playable delivery is handled as a submission artifact outside the Unity source tree unless explicitly added later.
 
 ---
 
-## 16. Next valid action
+## 19. Final Checklist
 
-1. Wait for explicit user approval before beginning Milestone 3.
-2. Milestone 3 scope: UI structure with the required UI Kit, scene-authored views, presenters, and Success/Fail UI wiring.
-
-Do not start Milestone 3 until the user explicitly approves it.
+- [x] Unity `2022.3.62f2` compatible
+- [x] URP retained
+- [x] Portrait-oriented UI with `1080 x 1920` reference resolution
+- [x] Extenject composition
+- [x] No custom DI container
+- [x] Gameplay assembly has no Unity dependency
+- [x] Required UI Kit visibly used
+- [x] Five racers in demo config
+- [x] Finish target is ten
+- [x] Success advances player by one
+- [x] Fail does not advance player
+- [x] Independent deterministic AI
+- [x] Central AI tick driver
+- [x] Ranking and overtake feedback
+- [x] UTC countdown and offline catch-up
+- [x] Event expiration DNF/no reward
+- [x] Rewards only ranks 1-3
+- [x] Rank 4/5/DNF no reward
+- [x] Player must finish to receive reward
+- [x] Versioned save/restore
+- [x] Strict invalid-save rejection
+- [x] Reward claim guard
+- [x] Scene/prefab-authored UI
+- [x] DOTween popup/button/racer polish
+- [x] Central audio service
+- [x] Host level result decoupling
+- [x] EditMode tests added
+- [x] README complete
+- [x] AI workflow documented
+- [x] One AI correction documented
+- [x] One-more-day improvements documented
+- [x] Final tracker cleaned

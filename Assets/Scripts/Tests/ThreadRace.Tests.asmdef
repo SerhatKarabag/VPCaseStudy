@@ -1,0 +1,31 @@
+{
+    "name": "ThreadRace.Tests",
+    "rootNamespace": "ThreadRace.Tests",
+    "references": [
+        "ThreadRace.Core",
+        "ThreadRace.Gameplay",
+        "ThreadRace.Infrastructure",
+        "ThreadRace.App",
+        "ThreadRace.Presentation",
+        "Zenject",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "noEngineReferences": false
+}

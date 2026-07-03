@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a28a2bd8c0864fefa88fbad855d7c1e7, type: 3}
+  m_Name: ThreadRaceAudioLibrary
+  m_EditorClassIdentifier: 
+  _musicClips:
+  - _cue: 1
+    _clip: {fileID: 8300000, guid: e0b616d816cb569429051ef4269915d1, type: 3}
+  - _cue: 2
+    _clip: {fileID: 8300000, guid: 239116b19494ac1488edb042242eaa29, type: 3}
+  _soundClips:
+  - _cue: 1
+    _clip: {fileID: 8300000, guid: 2eec246979bae67409d5d8388170573c, type: 3}
+  - _cue: 2
+    _clip: {fileID: 8300000, guid: bbfbfa0589f46b84d8ba6e0de8d70f36, type: 3}
+  - _cue: 3
+    _clip: {fileID: 8300000, guid: af4d11ace595d2b418f3b3de105fd352, type: 3}
+  - _cue: 4
+    _clip: {fileID: 8300000, guid: ec5244c7e43826b44b29102e4370a01a, type: 3}
+  - _cue: 5
+    _clip: {fileID: 8300000, guid: de8ad0cd64aa93b4bb7472a1784b705f, type: 3}
+  _crossfadeDurationSeconds: 0.8
+  _defaultMusicVolume: 0.65
+  _defaultSfxVolume: 1
+  _startupMusicCue: 1

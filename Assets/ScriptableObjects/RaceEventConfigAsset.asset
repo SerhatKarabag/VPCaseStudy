@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf1090cbd15cbc45b98ff087abb2b3a, type: 3}
+  m_Name: RaceEventConfigAsset
+  m_EditorClassIdentifier: 
+  _saveSchemaVersion: 3
+  _saveKey: ThreadRace.Save.V3
+  _defaultSeed: 26062026
+  _eventDurationSeconds: 1800
+  _countdownUpdateIntervalSeconds: 1
+  _finishTarget: 10
+  _rewardedPositionCount: 3
+  _rewardTiers:
+  - _rank: 1
+    _rewardId: thread_race_rank_1_coins
+    _rewardType: 0
+    _amount: 1000
+    _displayText: 1000 Coins
+    _iconId: coin_stack
+  - _rank: 2
+    _rewardId: thread_race_rank_2_coins
+    _rewardType: 0
+    _amount: 500
+    _displayText: 500 Coins
+    _iconId: coin_stack
+  - _rank: 3
+    _rewardId: thread_race_rank_3_coins
+    _rewardType: 0
+    _amount: 250
+    _displayText: 250 Coins
+    _iconId: coin_stack
+  _racers:
+  - _racerId: player
+    _displayName: You
+    _racerType: 0
+    _minimumAiStepDelaySeconds: 0
+    _maximumAiStepDelaySeconds: 0
+    _aiPacingStyle: 0
+    _usesDynamicAiPlanning: 0
+    _aiSkill: 0.5
+    _aiConsistency: 1
+    _aiVolatility: 0
+    _aiEarlyPaceBias: 0
+    _aiLatePaceBias: 0
+    _aiBurstChance: 0
+    _aiSlumpChance: 0
+    _aiFinalPushChance: 0
+  - _racerId: ai_01
+    _displayName: Nova
+    _racerType: 1
+    _minimumAiStepDelaySeconds: 6.8
+    _maximumAiStepDelaySeconds: 10.2
+    _aiPacingStyle: 1
+    _usesDynamicAiPlanning: 1
+    _aiSkill: 0.52
+    _aiConsistency: 0.9
+    _aiVolatility: 0.16
+    _aiEarlyPaceBias: 0.02
+    _aiLatePaceBias: 0.08
+    _aiBurstChance: 0.04
+    _aiSlumpChance: 0.03
+    _aiFinalPushChance: 0.08
+  - _racerId: ai_02
+    _displayName: Bolt
+    _racerType: 1
+    _minimumAiStepDelaySeconds: 6.4
+    _maximumAiStepDelaySeconds: 10.8
+    _aiPacingStyle: 2
+    _usesDynamicAiPlanning: 1
+    _aiSkill: 0.52
+    _aiConsistency: 0.64
+    _aiVolatility: 0.38
+    _aiEarlyPaceBias: 0.62
+    _aiLatePaceBias: -0.18
+    _aiBurstChance: 0.13
+    _aiSlumpChance: 0.08
+    _aiFinalPushChance: 0.04
+  - _racerId: ai_03
+    _displayName: Mina
+    _racerType: 1
+    _minimumAiStepDelaySeconds: 6.5
+    _maximumAiStepDelaySeconds: 10.6
+    _aiPacingStyle: 3
+    _usesDynamicAiPlanning: 1
+    _aiSkill: 0.52
+    _aiConsistency: 0.72
+    _aiVolatility: 0.3
+    _aiEarlyPaceBias: -0.18
+    _aiLatePaceBias: 0.64
+    _aiBurstChance: 0.08
+    _aiSlumpChance: 0.07
+    _aiFinalPushChance: 0.2
+  - _racerId: ai_04
+    _displayName: Rex
+    _racerType: 1
+    _minimumAiStepDelaySeconds: 6.1
+    _maximumAiStepDelaySeconds: 11.2
+    _aiPacingStyle: 4
+    _usesDynamicAiPlanning: 1
+    _aiSkill: 0.51
+    _aiConsistency: 0.45
+    _aiVolatility: 0.76
+    _aiEarlyPaceBias: 0.04
+    _aiLatePaceBias: 0.16
+    _aiBurstChance: 0.22
+    _aiSlumpChance: 0.16
+    _aiFinalPushChance: 0.14
