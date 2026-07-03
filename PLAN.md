@@ -8,6 +8,8 @@ The player competes against four AI opponents. Every successful placeholder leve
 
 The live-event countdown is visible and already ticking before the player joins. Pressing Start accepts entry into the currently active event window; it does not extend the end time. AI/race progression still begins only after Start. Event duration is authored in `RaceEventConfigAsset`; the current demo config uses `1800` seconds and can be changed from data. If the configured event end time is reached before the player finishes, the result is EventExpired DNF with no reward.
 
+Clarification: the original candidate brief describes a multi-day countdown as a nice-to-have and does not require a three-day default. This project keeps the shorter demo window as authored data and documents the chosen active-window behavior.
+
 The implementation must look like a production-ready live-event module, not a throwaway prototype.
 
 ---

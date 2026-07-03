@@ -23,9 +23,9 @@ namespace ThreadRace.Tests.EditMode
         private const string LevelPrefabPath = "Assets/Prefabs/UI/ThreadRacePlaceholderLevel.prefab";
         private const string ResultPrefabPath = "Assets/Prefabs/UI/ThreadRaceResultPanel.prefab";
         private const string ProjectContextPath = "Assets/Resources/ProjectContext.prefab";
-        private const string UiKitSpritesRoot = "Assets/300Mind/2D Game UI Kit/Sprites";
-        private const string ThreadFeverMainMenuSpritesRoot = "Assets/Art/ThreadFeverMainMenu/Sprites";
-        private const string HoleCrazeArtRoot = "Assets/Art/HoleCraze";
+        private const string UiKitSpritesRoot = "Assets/2D Game UI Kit/Sprites";
+        private const string ThreadFeverMainMenuSpritesRoot = "Assets/Sprites/MainMenu_";
+        private const string HoleCrazeArtRoot = "Assets/Sprites/comingsoon_bubble.png";
         private const string PrimaryFontAssetPath = "Assets/Fonts/LilitaOne-Regular SDF.asset";
         [Test]
         public void DemoSceneExistsAndContainsRequiredLayers()

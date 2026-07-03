@@ -489,6 +489,7 @@ The README contains the required AI section: tools used, where AI helped, one co
 | 2026-07-03 | PROGRESS is final tracker | Clean repository presentation matters for case-study review |
 | 2026-07-03 | Race resolves when top-three reward slots are filled | Case brief allowed documenting the end condition; lower placements do not affect rewards after all podium slots are gone |
 | 2026-07-03 | Countdown is visible before Start | Present the event as an active Royal Match Sky Race-style live-ops window that the player joins |
+| 2026-07-03 | AGENTS countdown requirement aligned with original brief | The case document marks multi-day countdown as nice-to-have and does not require a three-day default |
 
 ---
 

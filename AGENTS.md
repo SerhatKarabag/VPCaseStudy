@@ -67,10 +67,9 @@ The final submission must include:
 - Player advances by one step on **Success**
 - Player does not advance on **Fail**
 - AI opponents advance independently over time
-- The event has a configurable multi-day countdown, defaulting to exactly three days
-- The countdown starts only when the player presses Start
-- Running AI progress catches up deterministically from elapsed UTC time when the app is restored
-- Event expiration resolves an unfinished player as DNF with no reward
+- A configurable multi-day countdown is a nice-to-have from the original case brief, not a required default duration
+- If a countdown/event window is implemented, its duration and start policy must be data-driven and documented
+- If a timed event expires before the player reaches the finish, event expiration resolves an unfinished player as DNF with no reward
 - Ranking updates while racers overtake each other
 - Rewards only for ranks 1–3
 - The player receives a reward only if the player reaches the finish
@@ -469,7 +468,7 @@ Rules:
 - Initial event state is `Entry`
 - AI movement does not begin before Start
 - Start transitions to `Racing`
-- Start captures UTC start/end timestamps and activates the countdown
+- If the implementation uses a countdown/event window, Start may either create a race window or join an already-active window; the chosen policy must be documented
 - Save immediately after race start
 
 ### Player progress
